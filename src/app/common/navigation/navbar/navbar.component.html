@@ -1,0 +1,23 @@
+<nav class="flex justify-between items-center px-8 py-4 bg-white shadow-md">
+  <div class="flex items-center">
+    <div class="text-green-600 text-xl font-bold">M.</div>
+    <ul class="flex space-x-6 ml-6">
+      <li><a href="#" class="text-gray-700 hover:text-green-600">Home</a></li>
+      <li>
+        <a href="#" class="text-gray-700 hover:text-green-600">Components</a>
+      </li>
+      <li><a href="#" class="text-gray-700 hover:text-green-600">Pages</a></li>
+      <li><a href="#" class="text-gray-700 hover:text-green-600">Docs</a></li>
+    </ul>
+  </div>
+  <div class="flex space-x-4">
+    <a [routerLink]="'signin'" class="text-gray-700 hover:text-green-600"
+      >Sign in</a
+    >
+    <button
+      class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+    >
+      Purchase
+    </button>
+  </div>
+</nav>
