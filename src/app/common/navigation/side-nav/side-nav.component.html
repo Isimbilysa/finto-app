@@ -1,24 +1,45 @@
-<div class="bg-white w-64 min-h-screen flex flex-col shadow-lg">
-    <div class="flex items-center justify-center h-16 text-2xl font-bold">📊 Dashboard</div>
-    <nav class="flex-1 px-4 py-4">
-      <ul>
-        <li class="mb-2">
-          <a class="flex items-center px-4 py-2 hover:bg-gray-100 rounded">
-            <span class="text-green-500">●</span>
-            <span class="ml-2">App</span>
-          </a>
-        </li>
-        <li class="mb-2">
-          <a class="flex items-center px-4 py-2 hover:bg-gray-100 rounded">
-            <i class="fas fa-shopping-cart"></i>
-            <span class="ml-2">Ecommerce</span>
-          </a>
-        </li>
-        <!-- Add more navigation items here -->
-      </ul>
-    </nav>
-    <div class="p-4">
-      <button class="w-full bg-green-500 text-white py-2 px-4 rounded">Upgrade to Pro</button>
+<div class="h-screen w-64 bg-white shadow-lg flex flex-col">
+  <!-- Logo Section -->
+  <div class="p-4 flex items-center">
+    <img src="assets/logo.svg" alt="Hyper Logo" class="h-8 w-auto">
+    <span class="ml-2 text-lg font-semibold">Hyper</span>
+  </div>
+
+  <!-- Navigation Menu -->
+  <div class="flex-1 mt-4">
+    <div *ngFor="let item of menuItems" class="px-4 py-2">
+      <div class="flex items-center justify-between">
+        <a
+          [routerLink]="item.link"
+          class="flex items-center text-gray-600 hover:text-blue-500 transition"
+        >
+          <i [ngClass]="'fas fa-' + item.icon" class="text-lg"></i>
+          <span class="ml-3">{{ item.label }}</span>
+        </a>
+        <span
+          *ngIf="item.badge"
+          class="bg-blue-500 text-white text-xs px-2 py-1 rounded-full"
+        >
+          {{ item.badge }}
+        </span>
+      </div>
+      <div *ngIf="item.subMenu" class="mt-2 ml-6 text-sm text-gray-500">
+        <div *ngFor="let subItem of item.subMenu" class="py-1 hover:text-blue-500">
+          {{ subItem }}
+        </div>
+      </div>
     </div>
   </div>
-  
+
+  <!-- User Section -->
+  <div class="px-4 py-4 border-t">
+    <div class="flex items-center">
+      <img
+        [src]="user.profileImage"
+        alt="User Profile"
+        class="h-10 w-10 rounded-full"
+      />
+      <span class="ml-3 text-sm font-medium">{{ user.name }}</span>
+    </div>
+  </div>
+</div>
