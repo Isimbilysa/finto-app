@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AnalyticsComponentComponent } from './analytics.component.component';
+import { AnalyticsComponentComponent } from './analytics.component';
 
 describe('AnalyticsComponentComponent', () => {
   let component: AnalyticsComponentComponent;
