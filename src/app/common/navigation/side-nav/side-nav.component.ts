@@ -1,42 +1,24 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './side-nav.component.html',
+  imports : [RouterLink, CommonModule ]
 })
-export class SidebarComponent {
+export class SideNavComponent {
   // Sidebar menu items
   menuItems = [
-    {
-      label: 'Dashboard',
-      icon: 'fas fa-tachometer-alt', // Font Awesome icon class
-      route: '/dashboard', // Link to the route
-      active: true // Can be used to highlight the active menu
-    },
-    {
-      label: 'Ecommerce',
-      icon: 'fas fa-shopping-cart',
-      route: '/ecommerce',
-      active: false
-    },
-    {
-      label: 'Analytics',
-      icon: 'fas fa-chart-line',
-      route: '/analytics',
-      active: false
-    },
-    {
-      label: 'Settings',
-      icon: 'fas fa-cog',
-      route: '/settings',
-      active: false,
-      children: [ // Dropdown submenu items
-        { label: 'Profile', route: '/settings/profile' },
-        { label: 'Account', route: '/settings/account' },
-        { label: 'Notifications', route: '/settings/notifications' }
-      ]
-    }
+    { label: 'Dashboard', icon: 'home', link: '/dashboard' },
+    { label: 'Bookmarks', icon: 'bookmark', link: '/bookmarks' },
+    { label: 'Reports', icon: 'chart-bar', link: '/reports', subMenu: ['Daily', 'Monthly', 'Yearly'] },
+    { label: 'Team', icon: 'users', link: '/team' },
+    { label: 'Messages', icon: 'envelope', link: '/messages', badge: 3 },
+    { label: 'Calendar', icon: 'calendar', link: '/calendar' },
+    { label: 'Settings', icon: 'cog', link: '/settings' },
   ];
+  user = { name: 'Amy Elsner', profileImage: 'https://via.placeholder.com/50' };
 
   // Toggle submenu visibility
   toggleSubmenu(item: any) {
