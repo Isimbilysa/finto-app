@@ -1,4 +1,99 @@
-<div class="bg-white rounded shadow p-6">
-    <h2 class="text-lg font-semibold">Area Installed (+43%) than last year</h2>
+<div class="grid">
+  <div class="col-12">
+    <h1>Hi, Welcome back 👋</h1>
   </div>
-  
+
+  <!-- Stats Cards -->
+  <div class="col-12 md:col-3">
+    <p-card styleClass="h-full">
+      <ng-template pTemplate="header">
+        <div class="flex justify-content-between align-items-center">
+          <i class="pi pi-shopping-bag text-xl"></i>
+          <span class="text-green-500">+2.6%</span>
+        </div>
+      </ng-template>
+      <h3>Weekly sales</h3>
+      <h2>714k</h2>
+      <div style="height: 100px">
+        <p-chart type="line" [data]="weeklySalesChart" [options]="sparklineOptions"></p-chart>
+      </div>
+    </p-card>
+  </div>
+
+  <div class="col-12 md:col-3">
+    <p-card styleClass="h-full">
+      <ng-template pTemplate="header">
+        <div class="flex justify-content-between align-items-center">
+          <i class="pi pi-users text-xl"></i>
+          <span class="text-red-500">-0.1%</span>
+        </div>
+      </ng-template>
+      <h3>New users</h3>
+      <h2>1.35m</h2>
+      <div style="height: 100px">
+        <p-chart type="line" [data]="newUsersChart" [options]="sparklineOptions"></p-chart>
+      </div>
+    </p-card>
+  </div>
+
+  <div class="col-12 md:col-3">
+    <p-card styleClass="h-full">
+      <ng-template pTemplate="header">
+        <div class="flex justify-content-between align-items-center">
+          <i class="pi pi-shopping-cart text-xl"></i>
+          <span class="text-green-500">+2.8%</span>
+        </div>
+      </ng-template>
+      <h3>Purchase orders</h3>
+      <h2>1.72m</h2>
+      <div style="height: 100px">
+        <p-chart type="line" [data]="purchaseOrdersChart" [options]="sparklineOptions"></p-chart>
+      </div>
+    </p-card>
+  </div>
+
+  <div class="col-12 md:col-3">
+    <p-card styleClass="h-full">
+      <ng-template pTemplate="header">
+        <div class="flex justify-content-between align-items-center">
+          <i class="pi pi-envelope text-xl"></i>
+          <span class="text-green-500">+3.6%</span>
+        </div>
+      </ng-template>
+      <h3>Messages</h3>
+      <h2>234</h2>
+      <div style="height: 100px">
+        <p-chart type="line" [data]="messagesChart" [options]="sparklineOptions"></p-chart>
+      </div>
+    </p-card>
+  </div>
+
+  <!-- Charts -->
+  <div class="col-12 md:col-6">
+    <p-card header="Current visits">
+      <div style="height: 300px">
+        <p-chart type="pie" [data]="visitsChartData" [options]="pieChartOptions"></p-chart>
+      </div>
+      <div class="flex justify-content-center gap-3 mt-3">
+        <div *ngFor="let label of legendLabels" class="flex align-items-center">
+          <div [style.background-color]="label.color" style="width: 12px; height: 12px; border-radius: 50%; margin-right: 8px"></div>
+          <span>{{ label.text }}</span>
+        </div>
+      </div>
+    </p-card>
+  </div>
+
+  <div class="col-12 md:col-6">
+    <p-card>
+      <ng-template pTemplate="header">
+        <div class="flex justify-content-between align-items-center">
+          <h3>Website visits</h3>
+          <span class="text-500">(+43%) than last year</span>
+        </div>
+      </ng-template>
+      <div style="height: 300px">
+        <p-chart type="bar" [data]="websiteVisitsData" [options]="barChartOptions"></p-chart>
+      </div>
+    </p-card>
+  </div>
+</div>
