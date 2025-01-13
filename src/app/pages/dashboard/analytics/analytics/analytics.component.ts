@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { ChartModule } from 'primeng/chart';
 @Component({
   selector: 'app-analytics.component',
-  imports: [ChartModule, BrowserModule],
+  imports: [ChartModule],
   templateUrl: './analytics.component.html',
   styleUrl: './analytics.component.css'
 })
