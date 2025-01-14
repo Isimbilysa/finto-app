@@ -4,13 +4,15 @@ import { LandingComponent } from './pages/home/landing/landing.component/landing
 import { SigninComponent } from './pages/home/signin/signin.component';
 import { AnalyticsComponentComponent } from './pages/dashboard/analytics/analytics/analytics.component';
 import { AssetComponentComponent } from './pages/dashboard/assets/asset.component/asset.component.component';
+import { PortfolioComponentComponent } from './pages/dashboard/portfolio/portfolio.component/portfolio.component.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent }, // Landing Page
   { path: 'signin', component: SigninComponent }, // Sign-In Page
    {path: 'dashboard',  children: [
           {path: 'analytics',component: AnalyticsComponentComponent},
-          {path: 'assets', component: AssetComponentComponent}
+          {path: 'assets', component: AssetComponentComponent},
+          {path:'portfolio', component: PortfolioComponentComponent}
       ]} 
 ];
 

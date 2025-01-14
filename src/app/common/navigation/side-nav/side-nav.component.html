@@ -1,26 +1,26 @@
-<div class="h-screen bg-white shadow-lg flex flex-col py-4 px-6">
+<div class="h-screen bg-gradient-to-b from-white to-gray-100 shadow-lg flex flex-col py-4 px-3">
   <!-- Logo Section -->
-  <div class="flex items-center">
-    <div class="text-green-600 text-xl font-bold">FinTo.</div>
+  <div class="flex items-center mb-4">
+    <div class="text-green-600 text-xl font-bold tracking-wide">FinTo.</div>
   </div>
-  <p class="text-lg font-semibold font-barlow text-[#93a0ac] mt-2">Overview</p>
+
+  <!-- Overview Section -->
+  <p class="text-base font-semibold text-gray-600 tracking-wide">Overview</p>
 
   <!-- Navigation Menu -->
-  <div class="flex-1 mt-4 text-[#93a0ac]">
+  <div class="flex-1 mt-4 text-gray-600">
     <div *ngFor="let item of menuItems" class="py-2">
       <div class="flex items-center justify-between">
         <a
           [routerLink]="item.link"
-          class="flex items-center text-gray-600 hover:text-blue-500 transition"
+          class="flex items-center text-gray-600 hover:text-green-500 transition-colors duration-300"
         >
-          <i [ngClass]="'pi pi-' + item.icon" style="font-size: 1rem"></i>
-          <!-- <i class="pi pi-check" style="font-size: 1rem"></i> -->
-
-          <span class="ml-3">{{ item.label }}</span>
+          <i [ngClass]="'pi pi-' + item.icon" class="text-lg"></i>
+          <span class="ml-3 font-medium text-sm">{{ item.label }}</span>
         </a>
         <span
           *ngIf="item.badge"
-          class="bg-blue-500 text-white text-xs px-2 py-1 rounded-full"
+          class="bg-green-500 text-white text-xs px-2 py-1 rounded-full shadow-sm"
         >
           {{ item.badge }}
         </span>
@@ -44,14 +44,17 @@
   </div>
 
   <!-- User Section -->
-  <div class="px-4 py-4 border-t">
+  <div class="px-3 py-3 border-t border-gray-200 mt-4">
     <div class="flex items-center">
       <img
         [src]="user.profileImage"
         alt="User Profile"
-        class="h-10 w-10 rounded-full"
+        class="h-10 w-10 rounded-full border-2 border-green-500 shadow-sm"
       />
-      <span class="ml-3 text-sm font-medium">{{ user.name }}</span>
+      <div class="ml-3">
+        <span class="block text-sm font-semibold text-gray-700">{{ user.name }}</span>
+        <span class="block text-xs text-gray-500">View Profile</span>
+      </div>
     </div>
   </div>
 </div>
