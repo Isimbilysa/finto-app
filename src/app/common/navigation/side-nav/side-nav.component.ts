@@ -10,8 +10,8 @@ import { RouterLink } from '@angular/router';
 export class SideNavComponent {
   // Sidebar menu items
   menuItems = [
-    { label: 'Analytics', icon: 'home', link: '/dashboard' },
-    { label: 'Portfolio', icon: 'bookmark', link: '/bookmarks', subMenu: ['Create portfolio', 'List', 'Visuals'] },
+    { label: 'Analytics', icon: 'home', link: '/dashboard/analytics' },
+    { label: 'Portfolio', icon: 'bookmark', link: '/dashboard/portofolio', subMenu: ['Create portfolio', 'List', 'Visuals'] },
     { label: 'Assets', icon: 'chart-bar', link: '/reports' },
     { label: 'Calendar', icon: 'users', link: '/team' },
     { label: 'Trends', icon: 'envelope', link: '/messages', badge: 3 },

@@ -5,6 +5,7 @@ import { SignupComponent } from './pages/home/signup/signup.component/signup.com
 import { SideNavComponent } from './common/navigation/side-nav/side-nav.component';
 import { AnalyticsComponentComponent } from './pages/dashboard/analytics/analytics/analytics.component';
 import { AssetComponentComponent } from './pages/dashboard/assets/asset.component/asset.component.component';
+import { PortfolioComponentComponent } from './pages/dashboard/portfolio/portfolio.component/portfolio.component.component';
 
 export const routes: Routes = [
     {path: 'signin', component: SigninComponent},
@@ -12,5 +13,6 @@ export const routes: Routes = [
     {path: '', component: LandingComponent},
     {path: 'dashboard',  children: [
         {path: 'analytics',component: AnalyticsComponentComponent},
-        {path: 'assets', component: AssetComponentComponent}
+        {path: 'assets', component: AssetComponentComponent},
+        {path:'portofolio', component: PortfolioComponentComponent},
     ]}];
