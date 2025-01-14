@@ -1,5 +1,97 @@
-<div class="w-full flex">
-    <div class="w-1/5">
-        <app-sidebar></app-sidebar>
+<p-button (click)="toggleDialog()" label="Show" />
+ <p-dialog header="Edit Profile" *ngIf="isBrowser" [modal]="true" [modal]="true"  [(visible)]="visible" [style]="{ width: '25rem' }">
+    
+    <span class="p-text-secondary block mb-8">Update your information.</span>
+    <div class="p-card p-4">
+
+  <form (ngSubmit)="onSubmit()" #assetForm="ngForm" class="p-fluid">
+    <div class="field mb-4">
+      <label for="assetName" class="font-semibold">Asset Name</label>
+      <input
+        pInputText
+        id="assetName"
+        name="assetName"
+        [(ngModel)]="asset.name"
+        required
+        class="p-inputtext p-component w-full"
+        placeholder="Enter asset name"
+        autocomplete="off"
+      />
+      <small *ngIf="assetForm.submitted && !assetForm.controls['assetName']?.valid" class="p-error">
+        Asset name is required.
+      </small>
     </div>
+
+    <div class="field mb-4">
+      <label for="category" class="font-semibold">Category</label>
+      <p-dropdown
+        id="category"
+        name="category"
+        [(ngModel)]="asset.category"
+        [options]="categories"
+        optionLabel="name"
+        placeholder="Select a category"
+        required
+      ></p-dropdown>
+      <small *ngIf="assetForm.submitted && !assetForm.controls['category']?.valid" class="p-error">
+        Category is required.
+      </small>
+    </div>
+
+    <div class="field mb-4">
+      <label for="purchaseDate" class="font-semibold">Purchase Date</label>
+      <p-calendar
+        id="purchaseDate"
+        name="purchaseDate"
+        [(ngModel)]="asset.purchaseDate"
+        dateFormat="yy-mm-dd"
+        showIcon
+        required
+      ></p-calendar>
+      <small *ngIf="assetForm.submitted && !assetForm.controls['purchaseDate']?.valid" class="p-error">
+        Purchase date is required.
+      </small>
+    </div>
+
+    <div class="field mb-4">
+      <label for="serialNumber" class="font-semibold">Serial Number</label>
+      <input
+        pInputText
+        id="serialNumber"
+        name="serialNumber"
+        [(ngModel)]="asset.serialNumber"
+        class="p-inputtext p-component w-full"
+        placeholder="Enter serial number"
+        autocomplete="off"
+      />
+    </div>
+
+    <!-- Asset Value -->
+    <div class="field mb-4">
+      <label for="value" class="font-semibold">Asset Value (USD)</label>
+      <input
+        pInputNumber
+        id="value"
+        name="value"
+        [(ngModel)]="asset.value"
+        mode="decimal"
+        currency="USD"
+        class="p-inputtext p-component w-full"
+        placeholder="Enter value"
+        required
+      />
+      <small *ngIf="assetForm.submitted && !assetForm.controls['value']?.valid" class="p-error">
+        Asset value is required.
+      </small>
+    </div>
+
+    <!-- Buttons -->
+    <div class="flex justify-end gap-2">
+      <p-button label="Cancel" severity="secondary" (click)="onCancel()"></p-button>
+      <p-button label="Register" type="submit" [disabled]="assetForm.invalid"></p-button>
+    </div>
+  </form>
 </div>
+
+   
+</p-dialog> 

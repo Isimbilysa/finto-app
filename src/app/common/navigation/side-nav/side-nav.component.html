@@ -1,13 +1,10 @@
-<div class="h-screen bg-gradient-to-b from-white to-gray-100 shadow-lg flex flex-col py-4 px-3">
-  <!-- Logo Section -->
+<div class="h-screen bg-gray-50flex flex-col py-4 px-3  ">
   <div class="flex items-center mb-4">
     <div class="text-green-600 text-xl font-bold tracking-wide">FinTo.</div>
   </div>
 
-  <!-- Overview Section -->
   <p class="text-base font-semibold text-gray-600 tracking-wide">Overview</p>
 
-  <!-- Navigation Menu -->
   <div class="flex-1 mt-4 text-gray-600">
     <div *ngFor="let item of menuItems" class="py-2">
       <div class="flex items-center justify-between">
@@ -25,21 +22,7 @@
           {{ item.badge }}
         </span>
       </div>
-      <div *ngIf="item.subMenus" class="mt-2 ml-6 text-sm text-gray-500">
-        <div
-          *ngFor="let subItem of item.subMenus"
-          class="py-1 hover:text-blue-500"
-        >
-          <a
-            [routerLink]="subItem.link"
-            class="flex items-center text-gray-600 hover:text-blue-500 transition"
-          >
-            <!-- <i class="pi pi-check" style="font-size: 1rem"></i> -->
-
-            <span class="ml-3">{{ subItem.label }}</span>
-          </a>
-        </div>
-      </div>
+      
     </div>
   </div>
 
