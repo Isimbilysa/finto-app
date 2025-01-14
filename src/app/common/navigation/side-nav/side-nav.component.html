@@ -1,19 +1,21 @@
-<div class="h-screen w-64 bg-white shadow-lg flex flex-col">
+<div class="h-screen bg-white shadow-lg flex flex-col py-4 px-6">
   <!-- Logo Section -->
-  <div class="p-4 flex items-center">
-    <img src="assets/logo.svg" alt="Hyper Logo" class="h-8 w-auto">
-    <span class="ml-2 text-lg font-semibold">Hyper</span>
+  <div class=" flex items-center">
+    <div class="text-green-600 text-xl font-bold">FinTo.</div>
   </div>
+  <p class="text-lg font-semibold font-barlow text-[#93a0ac] mt-2">Overview</p>
 
   <!-- Navigation Menu -->
-  <div class="flex-1 mt-4">
-    <div *ngFor="let item of menuItems" class="px-4 py-2">
+  <div class="flex-1 mt-4 text-[#93a0ac]">
+    <div *ngFor="let item of menuItems" class=" py-2">
       <div class="flex items-center justify-between">
         <a
           [routerLink]="item.link"
           class="flex items-center text-gray-600 hover:text-blue-500 transition"
         >
-          <i [ngClass]="'fas fa-' + item.icon" class="text-lg"></i>
+          <i [ngClass]="'pi pi-' + item.icon" style="font-size: 1rem"></i>
+          <!-- <i class="pi pi-check" style="font-size: 1rem"></i> -->
+
           <span class="ml-3">{{ item.label }}</span>
         </a>
         <span

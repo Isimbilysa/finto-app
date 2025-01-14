@@ -13,6 +13,10 @@ module.exports = {
         '50%': { 'background-position': '100% 50%' },
       },
     },  
+    fontFamily :{
+      barlow : ["Barlow", "sans-serif"],
+      poppins : ["Poppins"]
+    }
   },
   plugins: [],
 };
