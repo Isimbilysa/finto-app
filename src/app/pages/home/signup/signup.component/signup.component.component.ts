@@ -16,6 +16,10 @@ import { User } from '../../../../shared/types/user';
   styleUrl: './signup.component.component.css',
 })
 export class SignupComponent {
+  constructor(
+    private messageService: MessageService,
+    private userService: UserServiceService
+  ) {}
   formData = {
     firstName: '',
     lastName: '',
@@ -31,17 +35,7 @@ export class SignupComponent {
     password: '',
     role: 'user',
   };
-  constructor(
-    private messageService: MessageService,
-    private userService: UserServiceService
-  ) {}
-  show() {
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Success',
-      detail: 'Message sent successfully!',
-    });
-  }
+
   onSubmit() {
     this.newUser.email = this.formData.email;
     this.newUser.firstName = this.formData.firstName;

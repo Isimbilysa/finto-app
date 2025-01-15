@@ -39,20 +39,8 @@ export class UserServiceService {
     return this.http.post(this.apiUrl + 'client/register', user)
   }
 
-  login(user: LoginPayload): void {
-    this.http.post(this.apiUrl + 'auth/login', user).pipe(
-      catchError(this.handleError)
-    ).subscribe({
-      next: (response) => {
-        console.log('User logged in successfully:', response);
-        alert('User logged in successfully!');
-      },
-      error: (error) => {
-        console.error('Error logging in:', error);
-        this.handleError(error);
-        alert('Login failed. Please check your credentials and try again.');
-      }
-    });
+  login(user: LoginPayload): Observable<any> {
+   return this.http.post(this.apiUrl + 'auth/login', user)
   }
 
   updateUser(id: number, user: User): Observable<User> {
