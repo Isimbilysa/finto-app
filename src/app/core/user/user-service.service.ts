@@ -4,13 +4,15 @@ import { BehaviorSubject, catchError, Observable, throwError } from 'rxjs';
 import { User } from '../../shared/types/user';
 import { LoginPayload } from '../../shared/types/login-payload';
 import { MessageService } from 'primeng/api';
+import { CookieService } from 'ngx-cookie-service';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserServiceService {
 
-  constructor(private http: HttpClient, private messageService : MessageService ) {}
+  constructor(private http: HttpClient, private messageService : MessageService, private cookieService : CookieService ) {}
 
 
   private usernameSource = new BehaviorSubject<string>('');
@@ -22,6 +24,21 @@ export class UserServiceService {
 
   private apiUrl = `http://localhost:9000/api/v1/`;
 
+  setUserContext(key: string, value: string): void {
+    this.cookieService.set(key, value, 7); // Expires in 7 days
+  }
+
+  getUserContext(key: string): string {
+    return this.cookieService.get(key);
+  }
+
+  clearUserContext(key: string): void {
+    this.cookieService.delete(key);
+  }
+
+  clearAllContexts(): void {
+    this.cookieService.deleteAll();
+  }
 
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.apiUrl).pipe(

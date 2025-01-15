@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signin',
@@ -17,7 +18,8 @@ import { ToastModule } from 'primeng/toast';
 export class SigninComponent {
   constructor(
     private messageService: MessageService,
-    private userService: UserServiceService
+    private userService: UserServiceService,
+    private router : Router
   ) {}
   formData = {
     email: '',
@@ -43,6 +45,8 @@ export class SigninComponent {
             summary: 'Success',
             detail: 'Account logged in successfully, welcome!',
           });
+          this.userService.setUserContext('accessToken', response.data.accessToken);
+          this.router.navigate(['/dashboard/analytics']);
         },
         error: (error) => {
           console.error('Error logging in!', error);

@@ -52,26 +52,6 @@
         </small>
       </div>
 
-      <div class="field mb-4 space-y-2">
-        <label for="purchaseDate" class="font-semibold text-sm block">Purchase Date</label>
-        <p-datepicker
-          [(ngModel)]="asset.purchaseDate"
-          dateFormat="yy-mm-dd"
-          showIcon
-          name="purchaseDate"
-          class="mt-2"
-        />
-
-        <small
-          *ngIf="
-            assetForm.submitted && !assetForm.controls['purchaseDate']?.valid
-          "
-          class="p-error"
-        >
-          Purchase date is required.
-        </small>
-      </div>
-
       <div class="field mb-4">
         <label for="serialNumber" class="font-semibold text-sm">Serial Number</label>
         <input
