@@ -1,6 +1,6 @@
 <p-button (click)="toggleDialog()" label="Add New" />
 <p-dialog
-  header="Create New Asset"
+  header="Create New Portfolio"
   *ngIf="isBrowser"
   [modal]="true"
   [modal]="true"
@@ -11,7 +11,7 @@
   <div class="p-card p-2">
     <form (ngSubmit)="onSubmit()" #assetForm="ngForm" class="p-fluid">
       <div class="field mb-4">
-        <label for="assetName" class="font-semibold text-sm">Asset Name</label>
+        <label for="assetName" class="font-semibold text-sm">Portfolio Name</label>
 
         <input
           pInputText

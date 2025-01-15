@@ -1,27 +1,18 @@
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
-import { SideNavComponent } from '../../../../common/navigation/side-nav/side-nav.component';
+import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
-import {DatePickerModule} from 'primeng/datepicker';
 
 @Component({
-  selector: 'app-create-asset',
-  imports: [
-    ButtonModule,
-    DialogModule,
-    CommonModule,
-    FormsModule,
-    DropdownModule,
-    DatePickerModule
-  ],
-  templateUrl: './create-asset.component.html',
-  styleUrl: './create-asset.component.css',
+  selector: 'app-create-portfolio',
+  imports: [ButtonModule, CommonModule, DialogModule, FormsModule, DropdownModule],
+  templateUrl: './create-portfolio.component.html',
+  styleUrl: './create-portfolio.component.css'
 })
-export class CreateAssetComponent {
-  visible = true;
+export class CreatePortfolioComponent {
+  visible = false;
   toggleDialog() {
     this.visible = !this.visible;
   }
@@ -54,7 +45,6 @@ export class CreateAssetComponent {
   }
 
   onCancel() {
-    // Reset or close the form
     console.log('Registration canceled');
   }
   isBrowser: boolean;

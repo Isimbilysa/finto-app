@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SideNavComponent } from '../../../../common/navigation/side-nav/side-nav.component';
+import { CreatePortfolioComponent } from '../create-portfolio/create-portfolio.component';
+import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-portfolio-component',
   templateUrl: './portfolio.component.component.html',
   styleUrls: ['./portfolio.component.component.css'],
   standalone: true,
-  imports: [CommonModule,SideNavComponent], 
+  imports: [CommonModule,SideNavComponent, CreatePortfolioComponent, ButtonModule], 
 })
 export class PortfolioComponentComponent {
   users = [
@@ -28,6 +30,5 @@ export class PortfolioComponentComponent {
       role: 'IT Administrator',
       status: 'Pending',
     },
-    // Add more users...
   ];
 }
