@@ -33,7 +33,7 @@
             id="firstName"
             [(ngModel)]="formData.firstName"
             name="firstName"
-            class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500"
+            class="w-full mt-1 px-3 py-2 border rounded-lg focus:outline-green-500 focus:border-green-500"
           />
         </div>
 
@@ -47,7 +47,7 @@
             id="lastName"
             [(ngModel)]="formData.lastName"
             name="lastName"
-            class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500"
+            class="w-full mt-1 px-3 py-2 border rounded-lg focus:outline-green-500  focus:border-green-500"
           />
         </div>
 
@@ -61,7 +61,7 @@
             id="email"
             [(ngModel)]="formData.email"
             name="email"
-            class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500"
+            class="w-full mt-1 px-3 py-2 border  rounded-lg focus:outline-green-500 focus:border-green-500"
           />
         </div>
 
@@ -70,12 +70,11 @@
           <label for="password" class="block text-sm font-medium text-gray-700"
             >Password</label
           >
-          <input
-            type="password"
-            id="password"
-            [(ngModel)]="formData.password"
+          <p-password
             name="password"
-            class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500"
+            [toggleMask]="true"
+            [(ngModel)]="formData.password"
+            class="w-full"
           />
         </div>
 
