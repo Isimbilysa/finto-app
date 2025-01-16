@@ -7,7 +7,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { HttpClient } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
-import { PortfolioService } from '../../../../core/portfolio/portfolio.service';
+import { PortfolioService } from '../services/portfolio.service';
 
 @Component({
   selector: 'app-create-portfolio',
@@ -24,13 +24,13 @@ import { PortfolioService } from '../../../../core/portfolio/portfolio.service';
 })
 export class CreatePortfolioComponent {
   visible = false;
-  
+
   // asset object with value included
   asset = {
     name: '',
     category: null,
     description: '',
-    };
+  };
 
   categories = [
     { name: 'Electronics', code: 'EL' },
@@ -57,13 +57,9 @@ export class CreatePortfolioComponent {
   // onSubmit method to include validation for value
   onSubmit() {
     // Ensure all fields are valid before submission
-    if (
-      this.asset.name &&
-      this.asset.category &&
-      this.asset.description 
-        ) {
+    if (this.asset.name && this.asset.category && this.asset.description) {
       const apiUrl = 'http://localhost:9000/api/v1/portfolios';
-      
+
       this.portfolioService.registerPortfolio(this.asset).subscribe({
         next: (response) => {
           console.log('Asset registered successfully:', response);
@@ -83,15 +79,14 @@ export class CreatePortfolioComponent {
           });
         },
       });
-      
-      
+
       // Perform the HTTP POST request to register the asset
     } else {
-    //   this.messageService.add({
-    //     severity: 'warn',
-    //     summary: 'Validation Warning',
-    //     detail: 'Please fill in all fields before submitting.',
-    //   });
+      //   this.messageService.add({
+      //     severity: 'warn',
+      //     summary: 'Validation Warning',
+      //     detail: 'Please fill in all fields before submitting.',
+      //   });
     }
   }
 }

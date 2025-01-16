@@ -55,38 +55,38 @@
               <input type="checkbox" />
             </th>
             <th class="px-4 py-3">Name</th>
-            <th class="px-4 py-3">Phone Number</th>
-            <th class="px-4 py-3">Company</th>
-            <th class="px-4 py-3">Role</th>
-            <th class="px-4 py-3">Status</th>
+            <th class="px-4 py-3">Description</th>
+            <th class="px-4 py-3">Created At</th>
+            <th class="px-4 py-3">Category</th>
             <th class="px-4 py-3 text-right">Actions</th>
           </tr>
         </thead>
         <tbody class="text-gray-700 text-sm">
-          <tr *ngFor="let user of users" class="border-t hover:bg-gray-50">
+          <tr *ngFor="let portfolio of portfolios" class="border-t hover:bg-gray-50">
             <td class="px-4 py-3">
               <input type="checkbox" />
             </td>
             <td class="px-4 py-3 flex items-center space-x-3">
-              <img [src]="user.avatar" alt="Avatar" class="w-8 h-8 rounded-full" />
+              <!-- <img [src]="user.avatar" alt="Avatar" class="w-8 h-8 rounded-full" /> -->
               <div>
-                <p class="font-medium">{{ user.name }}</p>
-                <p class="text-xs text-gray-500">{{ user.email }}</p>
+                <p class="font-medium">{{ portfolio.name }}</p>
+                <p class="text-xs text-gray-500">{{ portfolio.description }}</p>
               </div>
             </td>
-            <td class="px-4 py-3">{{ user.phone }}</td>
-            <td class="px-4 py-3">{{ user.company }}</td>
-            <td class="px-4 py-3">{{ user.role }}</td>
+            <td class="px-4 py-3">{{ portfolio.createdAt }}</td>
+            <!-- <td class="px-4 py-3">{{ user.company }}</td> -->
             <td class="px-4 py-3">
-              <span
+              <!-- <span
+
                 [ngClass]="{
                   'text-red-500 bg-red-100 px-2 py-1 rounded-full': user.status === 'Banned',
                   'text-green-500 bg-green-100 px-2 py-1 rounded-full': user.status === 'Active',
                   'text-yellow-500 bg-yellow-100 px-2 py-1 rounded-full': user.status === 'Pending'
                 }"
               >
-                {{ user.status }}
-              </span>
+                {{ user.status }} data
+              </span> -->
+              data
             </td>
             <td class="px-4 py-3 text-right">
               <button class="text-gray-500 hover:text-blue-500">
