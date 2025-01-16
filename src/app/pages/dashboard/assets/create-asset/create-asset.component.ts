@@ -6,6 +6,8 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import {DatePickerModule} from 'primeng/datepicker';
+import { ToastModule } from 'primeng/toast';
+
 
 @Component({
   selector: 'app-create-asset',
@@ -15,7 +17,8 @@ import {DatePickerModule} from 'primeng/datepicker';
     CommonModule,
     FormsModule,
     DropdownModule,
-    DatePickerModule
+    DatePickerModule,
+    ToastModule
   ],
   templateUrl: './create-asset.component.html',
   styleUrl: './create-asset.component.css',
