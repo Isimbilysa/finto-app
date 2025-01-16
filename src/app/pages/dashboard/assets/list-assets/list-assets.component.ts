@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SideNavComponent } from '../../../../common/navigation/side-nav/side-nav.component';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import {DialogModule} from 'primeng/dialog';
 import { CreateAssetComponent } from '../create-asset/create-asset.component';
+import { AssetService } from '../service/asset.service';
+import { Asset } from '../../../../shared/types/asset';
 
 @Component({
   selector: 'app-list-assets',
@@ -17,27 +19,24 @@ import { CreateAssetComponent } from '../create-asset/create-asset.component';
   templateUrl: './list-assets.component.html',
   styleUrl: './list-assets.component.css',
 })
-export class ListAssetsComponent {
-  users = [
-    {
-      avatar: 'https://randomuser.me/api/portraits/thumb/men/1.jpg',
-      name: 'Angelique Morse',
-      email: 'benny89@yahoo.com',
-      phone: '+46 8 123 456',
-      company: 'Wuckert Inc',
-      role: 'Content Creator',
-      status: 'Banned',
-    },
-    {
-      avatar: 'https://randomuser.me/api/portraits/thumb/women/2.jpg',
-      name: 'Ariana Lang',
-      email: 'avery43@hotmail.com',
-      phone: '+54 11 1234-5678',
-      company: 'Feest Group',
-      role: 'IT Administrator',
-      status: 'Pending',
-    },
-  ];
+export class ListAssetsComponent implements OnInit{
+  constructor(private assetService : AssetService){}
+  assets: Asset[] | null = null;
+  ngOnInit(): void {
+    this.assetService.getAssets().subscribe({
+      next: (data) => {
+        this.assets = data; // Assign the fetched data
+        console.log('Assets loaded:', this.assets);
+      },
+      error: (err) => {
+        console.error('Failed to fetch assets:', err);
+      },
+    });
+  }
+
+
+  
+
   visible = true;
   toggleDialog() {
     this.visible = !this.visible;

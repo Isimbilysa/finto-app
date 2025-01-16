@@ -4,6 +4,8 @@ import { SideNavComponent } from '../../../../common/navigation/side-nav/side-na
 import { CreatePortfolioComponent } from '../create-portfolio/create-portfolio.component';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
+import { PortfolioService } from '../services/portfolio.service';
+import { Portfolio } from '../../../../shared/types/portfolio';
 @Component({
   selector: 'app-portfolio-component',
   templateUrl: './portfolio.component.component.html',
@@ -12,24 +14,18 @@ import { ToastModule } from 'primeng/toast';
   imports: [CommonModule,SideNavComponent, CreatePortfolioComponent, ButtonModule,ToastModule ], 
 })
 export class PortfolioComponentComponent {
-  users = [
-    {
-      avatar: 'https://randomuser.me/api/portraits/thumb/men/1.jpg',
-      name: 'Angelique Morse',
-      email: 'benny89@yahoo.com',
-      phone: '+46 8 123 456',
-      company: 'Wuckert Inc',
-      role: 'Content Creator',
-      status: 'Banned',
-    },
-    {
-      avatar: 'https://randomuser.me/api/portraits/thumb/women/2.jpg',
-      name: 'Ariana Lang',
-      email: 'avery43@hotmail.com',
-      phone: '+54 11 1234-5678',
-      company: 'Feest Group',
-      role: 'IT Administrator',
-      status: 'Pending',
-    },
-  ];
+  constructor(private portfolioService: PortfolioService){}
+    portfolios: Portfolio[] | null = null;
+  
+  ngOnInit(): void {
+    this.portfolioService.getPortfolios().subscribe({
+      next: (data) => {
+        this.portfolios = data; 
+        console.log('Assets loaded:', this.portfolios);
+      },
+      error: (err) => {
+        console.error('Failed to fetch assets:', err);
+      },
+    });
+  }
 }

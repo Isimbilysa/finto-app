@@ -7,10 +7,11 @@ import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
 import { UserServiceService } from '../../../../core/user/user-service.service';
 import { User } from '../../../../shared/types/user';
+import { PasswordModule } from 'primeng/password';
 
 @Component({
   selector: 'app-signup.component',
-  imports: [CommonModule, FormsModule, RouterLink, ToastModule, ButtonModule],
+  imports: [CommonModule, FormsModule, RouterLink, ToastModule, ButtonModule, PasswordModule],
   providers: [MessageService],
   templateUrl: './signup.component.component.html',
   styleUrl: './signup.component.component.css',
