@@ -4,11 +4,12 @@ import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
 import { CommonModule } from '@angular/common';
 import { SideNavComponent } from '../../../../common/navigation/side-nav/side-nav.component';
+import { HeaderComponetComponent } from '../../../../common/navigation/header/header.componet/header.componet.component';
 
 @Component({
   selector: 'app-analytics',
   standalone: true, 
-  imports: [ChartModule, CardModule, DividerModule, CommonModule, SideNavComponent],
+  imports: [ChartModule, CardModule, DividerModule, CommonModule, SideNavComponent, HeaderComponetComponent],
   templateUrl: './analytics.component.html',
   styleUrls: ['./analytics.component.css'] 
 })

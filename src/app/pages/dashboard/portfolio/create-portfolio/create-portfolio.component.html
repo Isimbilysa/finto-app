@@ -1,18 +1,18 @@
 <p-button (click)="toggleDialog()" label="Add New" />
+
 <p-dialog
   header="Create New Portfolio"
   *ngIf="isBrowser"
-  [modal]="true"
-  [modal]="true"
   [(visible)]="visible"
+  [modal]="true"
   [style]="{ width: '25rem' }"
-  class=""
 >
   <div class="p-card p-2">
     <form (ngSubmit)="onSubmit()" #assetForm="ngForm" class="p-fluid">
+      
+      <!-- Portfolio Name -->
       <div class="field mb-4">
         <label for="assetName" class="font-semibold text-sm">Portfolio Name</label>
-
         <input
           pInputText
           id="assetName"
@@ -23,18 +23,14 @@
           placeholder="Enter asset name"
           autocomplete="off"
         />
-        <small
-          *ngIf="assetForm.submitted && !assetForm.controls['assetName']?.valid"
-          class="p-error"
-        >
+        <small *ngIf="assetForm.submitted && !assetForm.controls['assetName']?.valid" class="p-error">
           Asset name is required.
         </small>
       </div>
 
+      <!-- Category -->
       <div class="field mb-4 space-y-2">
-        <label for="category" class="font-semibold mr-4 block text-sm"
-          >Category</label
-        >
+        <label for="category" class="font-semibold mr-4 block text-sm">Category</label>
         <p-dropdown
           id="category"
           name="category"
@@ -44,46 +40,25 @@
           placeholder="Select a category"
           required
         ></p-dropdown>
-        <small
-          *ngIf="assetForm.submitted && !assetForm.controls['category']?.valid"
-          class="p-error"
-        >
+        <small *ngIf="assetForm.submitted && !assetForm.controls['category']?.valid" class="p-error">
           Category is required.
         </small>
       </div>
 
+      <!-- Description -->
       <div class="field mb-4">
-        <label for="serialNumber" class="font-semibold text-sm">Serial Number</label>
+        <label for="description" class="font-semibold text-sm">Description</label>
         <input
-          pInputText
-          id="serialNumber"
-          name="serialNumber"
-          [(ngModel)]="asset.serialNumber"
+          type="text"
+          id="description"
+          name="description"
+          [(ngModel)]="asset.description"
           class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-green-500 focus:border-green-500"
-          placeholder="Enter serial number"
-          autocomplete="off"
-        />
-      </div>
-
-      <!-- Asset Value -->
-      <div class="field mb-4">
-        <label for="value" class="font-semibold text-sm">Asset Value (USD)</label>
-        <input
-          pInputNumber
-          id="value"
-          name="value"
-          [(ngModel)]="asset.value"
-          mode="decimal"
-          currency="USD"
-          class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-green-500 focus:border-green-500"
-          placeholder="Enter value"
+          placeholder="Enter Description"
           required
         />
-        <small
-          *ngIf="assetForm.submitted && !assetForm.controls['value']?.valid"
-          class="p-error"
-        >
-          Asset value is required.
+        <small *ngIf="assetForm.submitted && !assetForm.controls['description']?.valid" class="p-error">
+          Description is required.
         </small>
       </div>
 
@@ -92,7 +67,8 @@
         <p-button
           label="Cancel"
           severity="secondary"
-          (click)="onCancel()"
+          (click)="toggleDialog()"
+          class="p-button-text"
         ></p-button>
         <p-button
           label="Register"

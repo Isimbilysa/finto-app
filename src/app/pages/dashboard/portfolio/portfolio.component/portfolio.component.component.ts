@@ -3,12 +3,13 @@ import { CommonModule } from '@angular/common';
 import { SideNavComponent } from '../../../../common/navigation/side-nav/side-nav.component';
 import { CreatePortfolioComponent } from '../create-portfolio/create-portfolio.component';
 import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
 @Component({
   selector: 'app-portfolio-component',
   templateUrl: './portfolio.component.component.html',
   styleUrls: ['./portfolio.component.component.css'],
   standalone: true,
-  imports: [CommonModule,SideNavComponent, CreatePortfolioComponent, ButtonModule], 
+  imports: [CommonModule,SideNavComponent, CreatePortfolioComponent, ButtonModule,ToastModule ], 
 })
 export class PortfolioComponentComponent {
   users = [

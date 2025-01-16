@@ -4,25 +4,33 @@ import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
+import { HttpClient } from '@angular/common/http';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { PortfolioService } from '../../../../core/portfolio/portfolio.service';
 
 @Component({
   selector: 'app-create-portfolio',
-  imports: [ButtonModule, CommonModule, DialogModule, FormsModule, DropdownModule],
+  imports: [
+    ButtonModule,
+    CommonModule,
+    DialogModule,
+    FormsModule,
+    DropdownModule,
+    ToastModule,
+  ],
   templateUrl: './create-portfolio.component.html',
-  styleUrl: './create-portfolio.component.css'
+  styleUrls: ['./create-portfolio.component.css'],
 })
 export class CreatePortfolioComponent {
   visible = false;
-  toggleDialog() {
-    this.visible = !this.visible;
-  }
+  
+  // asset object with value included
   asset = {
     name: '',
     category: null,
-    purchaseDate: null,
-    serialNumber: '',
-    value: null,
-  };
+    description: '',
+    };
 
   categories = [
     { name: 'Electronics', code: 'EL' },
@@ -31,25 +39,59 @@ export class CreatePortfolioComponent {
     { name: 'Others', code: 'OT' },
   ];
 
+  isBrowser: boolean;
+
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private http: HttpClient,
+    private messageService: MessageService,
+    private portfolioService: PortfolioService
+  ) {
+    this.isBrowser = isPlatformBrowser(platformId);
+  }
+
+  toggleDialog() {
+    this.visible = !this.visible;
+  }
+
+  // onSubmit method to include validation for value
   onSubmit() {
+    // Ensure all fields are valid before submission
     if (
       this.asset.name &&
       this.asset.category &&
-      this.asset.purchaseDate &&
-      this.asset.value
-    ) {
-      console.log('Asset registered successfully:', this.asset);
+      this.asset.description 
+        ) {
+      const apiUrl = 'http://localhost:9000/api/v1/portfolios';
+      
+      this.portfolioService.registerPortfolio(this.asset).subscribe({
+        next: (response) => {
+          console.log('Asset registered successfully:', response);
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Portfolio created successfully!',
+          });
+          this.visible = false; // Close the dialog
+        },
+        error: (error) => {
+          console.error('Error registering asset:', error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Failed to register the portfolio. Please try again.',
+          });
+        },
+      });
+      
+      
+      // Perform the HTTP POST request to register the asset
     } else {
-      console.error('Form is invalid');
+    //   this.messageService.add({
+    //     severity: 'warn',
+    //     summary: 'Validation Warning',
+    //     detail: 'Please fill in all fields before submitting.',
+    //   });
     }
-  }
-
-  onCancel() {
-    console.log('Registration canceled');
-  }
-  isBrowser: boolean;
-
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
-    this.isBrowser = isPlatformBrowser(platformId);
   }
 }
