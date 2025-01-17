@@ -1,6 +1,7 @@
 export interface Portfolio {
-    id:string;
-    name:string;
-    description:string;
-    createdAt:string;
+  id: string;
+  name: string;
+  category: string;
+  description: string;
+  createdAt: string;
 }

@@ -20,7 +20,7 @@
           [(ngModel)]="asset.name"
           required
           class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-green-500"
-          placeholder="Enter asset name"
+          placeholder="Enter portfolio name"
           autocomplete="off"
         />
         <small *ngIf="assetForm.submitted && !assetForm.controls['assetName']?.valid" class="p-error">
@@ -32,14 +32,13 @@
       <div class="field mb-4 space-y-2">
         <label for="category" class="font-semibold mr-4 block text-sm">Category</label>
         <p-dropdown
-          id="category"
-          name="category"
-          [(ngModel)]="asset.category"
-          [options]="categories"
-          optionLabel="name"
-          placeholder="Select a category"
-          required
-        ></p-dropdown>
+        id="category"
+        name="category"
+        [(ngModel)]="asset.category"
+        [options]="categoryOptions"
+        placeholder="Select a category"
+        required
+      ></p-dropdown>
         <small *ngIf="assetForm.submitted && !assetForm.controls['category']?.valid" class="p-error">
           Category is required.
         </small>

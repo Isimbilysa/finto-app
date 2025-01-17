@@ -8,7 +8,7 @@ import { UtilService } from '../../../../utils/util.service';
   providedIn: 'root',
 })
 export class PortfolioService {
-  private baseUrl = 'http://localhost:9000/api/v1/portfolios'; // Replace with your backend URL
+  private baseUrl = 'http://localhost:9000/api/v1/assets'; // Replace with your backend URL
 
   constructor(private http: HttpClient, private cookieService: CookieService, private utilService: UtilService) {}
 

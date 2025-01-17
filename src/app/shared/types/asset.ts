@@ -2,6 +2,7 @@ export interface Asset {
     id:string,
     name : string, 
     description : string, 
-    // assetType: string,
+    marketValue: number,
+    asset_type: string,
     // assetStatus: string,
 }

@@ -31,19 +31,31 @@
         </small>
       </div>
 
+      <div class="field mb-4">
+        <label for="description" class="font-semibold text-sm">Description</label>
+        <input
+          pInputText
+          id="description"
+          name="description"
+          [(ngModel)]="asset.description"
+          class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-green-500 focus:border-green-500"
+          placeholder="Enter description number"
+          autocomplete="off"
+        />
+      </div>
+
       <div class="field mb-4 space-y-2">
         <label for="category" class="font-semibold mr-4 block text-sm"
           >Category</label
         >
         <p-dropdown
-          id="category"
-          name="category"
-          [(ngModel)]="asset.category"
-          [options]="categories"
-          optionLabel="name"
-          placeholder="Select a category"
-          required
-        ></p-dropdown>
+        id="asset_type"
+        name="asset_type"
+        [(ngModel)]="asset.asset_type"
+        [options]="categoryOptions"
+        placeholder="Select a type"
+        required
+      ></p-dropdown>
         <small
           *ngIf="assetForm.submitted && !assetForm.controls['category']?.valid"
           class="p-error"
@@ -52,6 +64,30 @@
         </small>
       </div>
 
+      <div class="field mb-4">
+        <label for="number" class="font-semibold text-sm">Market Value</label>
+        <input
+          pInputText
+          id="number"
+          name="marketValue"
+          [(ngModel)]="asset.marketValue"
+          class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-green-500 focus:border-green-500"
+          placeholder="Enter market value for asset"
+          autocomplete="off"
+        />
+      </div>
+      <div class="field mb-4 space-y-2">
+        <label for="category" class="font-semibold mr-4 block text-sm"
+          >Portfolio</label
+        >
+      <p-dropdown
+      [(ngModel)]="selectedPortfolioId"
+      [options]="portfolios"
+      name="portfolio"
+      placeholder="Select a portfolio"
+      required
+    ></p-dropdown>
+    </div>
       <div class="field mb-4 space-y-2">
         <label for="purchaseDate" class="font-semibold text-sm block">Purchase Date</label>
         <p-datepicker
@@ -72,41 +108,9 @@
         </small>
       </div>
 
-      <div class="field mb-4">
-        <label for="serialNumber" class="font-semibold text-sm">Serial Number</label>
-        <input
-          pInputText
-          id="serialNumber"
-          name="serialNumber"
-          [(ngModel)]="asset.serialNumber"
-          class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-green-500 focus:border-green-500"
-          placeholder="Enter serial number"
-          autocomplete="off"
-        />
-      </div>
+     
 
-      <!-- Asset Value -->
-      <div class="field mb-4">
-        <label for="value" class="font-semibold text-sm">Asset Value (USD)</label>
-        <input
-          pInputNumber
-          id="value"
-          name="value"
-          [(ngModel)]="asset.value"
-          mode="decimal"
-          currency="USD"
-          class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-green-500 focus:border-green-500"
-          placeholder="Enter value"
-          required
-        />
-        <small
-          *ngIf="assetForm.submitted && !assetForm.controls['value']?.valid"
-          class="p-error"
-        >
-          Asset value is required.
-        </small>
-      </div>
-
+    
       <!-- Buttons -->
       <div class="flex justify-end gap-2">
         <p-button

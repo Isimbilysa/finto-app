@@ -6,6 +6,7 @@ import {DialogModule} from 'primeng/dialog';
 import { CreateAssetComponent } from '../create-asset/create-asset.component';
 import { AssetService } from '../service/asset.service';
 import { Asset } from '../../../../shared/types/asset';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-list-assets',
@@ -15,6 +16,7 @@ import { Asset } from '../../../../shared/types/asset';
     ButtonModule,
     DialogModule,
     CreateAssetComponent,
+    ToastModule
   ],
   templateUrl: './list-assets.component.html',
   styleUrl: './list-assets.component.css',

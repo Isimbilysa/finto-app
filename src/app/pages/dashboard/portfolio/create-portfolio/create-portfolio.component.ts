@@ -31,13 +31,8 @@ export class CreatePortfolioComponent {
     category: null,
     description: '',
   };
-
-  categories = [
-    { name: 'Electronics', code: 'EL' },
-    { name: 'Furniture', code: 'FR' },
-    { name: 'Vehicles', code: 'VE' },
-    { name: 'Others', code: 'OT' },
-  ];
+  categoryOptions :  { label: string; value: string }[] = [];
+  categories  = ['BUSINESS', 'INVESTMENT', 'RETIREMENT'];
 
   isBrowser: boolean;
 
@@ -48,6 +43,10 @@ export class CreatePortfolioComponent {
     private portfolioService: PortfolioService
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
+    this.categoryOptions = this.categories.map(category => ({
+      label: category, // The display label
+      value: category, // The actual value
+    }));
   }
 
   toggleDialog() {

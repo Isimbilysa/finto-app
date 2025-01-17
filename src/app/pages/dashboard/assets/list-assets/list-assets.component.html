@@ -41,6 +41,7 @@
         </button>
       </div>
       <app-create-asset></app-create-asset>
+      <p-toast></p-toast>
     </div>
 
     <div class="flex items-center mb-6">
@@ -89,7 +90,7 @@
             </div>
           </td>
           <td class="px-4 py-3">{{ asset.description }}</td>
-          <!-- <td class="px-4 py-3">{{ asset.type }}</td> -->
+          <td class="px-4 py-3">{{ asset.asset_type }}</td>
           <!-- <td class="px-4 py-3">{{ asset.status }}</td> -->
           <!-- <td class="px-4 py-3">
             <span
