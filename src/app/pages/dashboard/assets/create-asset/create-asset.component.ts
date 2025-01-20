@@ -13,6 +13,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
+import { AssetService } from '../service/asset.service';
 @Component({
   selector: 'app-create-asset',
   imports: [
@@ -32,8 +33,9 @@ export class CreateAssetComponent implements OnInit {
     @Inject(PLATFORM_ID) private platformId: Object,
     private portfolioService: PortfolioService,
     private http: HttpClient, 
-    private cookieService : CookieService, 
-    private messageService: MessageService
+    private cookieService : CookieService,
+    private assetService: AssetService,
+    private messageService: MessageService,
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
     this.categoryOptions = this.categories.map((category) => ({
@@ -41,13 +43,14 @@ export class CreateAssetComponent implements OnInit {
       value: category, // The actual value
     }));
   }
-  visible = false;
   portfolios: { label: string; value: number }[] = [];
   selectedPortfolioId: number | null = null;
   private baseUrl:string = 'http://localhost:9000/api/v1/assets'
+  visible = false;
   toggleDialog() {
     this.visible = !this.visible;
   }
+
 
   categoryOptions: { label: string; value: string }[] = [];
 

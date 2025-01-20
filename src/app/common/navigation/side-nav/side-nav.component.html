@@ -1,4 +1,4 @@
-<div class="h-screen bg-gray-0 flex flex-col py-9 px-3  ">
+<div class="h-screen bg-gray-0 flex flex-col py-9 px-3">
   <div class="flex items-center mb-4">
     <div class="text-green-600 text-xl font-bold tracking-wide">FinTo.</div>
   </div>
@@ -7,7 +7,7 @@
 
   <div class="flex-1 mt-4 text-gray-600">
     <div *ngFor="let item of menuItems" class="py-2">
-      <div class="flex items-center justify-between">
+      <div class="flex items-center justify-between" (click)="item.label === 'Logout' ? logout() : null" >
         <a
           [routerLink]="item.link"
           class="flex items-center text-gray-600 hover:text-green-500 transition-colors duration-300"
@@ -21,8 +21,9 @@
         >
           {{ item.badge }}
         </span>
-      </div>
       
+      
+      </div>
     </div>
   </div>
 
@@ -35,10 +36,11 @@
         class="h-10 w-10 rounded-full border-2 border-green-500 shadow-sm"
       />
       <div class="ml-3">
-        <span class="block text-sm font-semibold text-gray-700">{{ user.name }}</span>
+        <span class="block text-sm font-semibold text-gray-700">{{
+          user.name
+        }}</span>
         <span class="block text-xs text-gray-500">View Profile</span>
       </div>
     </div>
-    
   </div>
 </div>

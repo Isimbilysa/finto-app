@@ -32,6 +32,9 @@ export class UserServiceService {
     return this.cookieService.get(key);
   }
 
+  isAuthenticated(){
+    return !!this.getUserContext('accessToken');
+  }
   clearUserContext(key: string): void {
     this.cookieService.delete(key);
   }
@@ -58,6 +61,13 @@ export class UserServiceService {
 
   login(user: LoginPayload): Observable<any> {
     return this.http.post(this.apiUrl + 'auth/login', user);
+  }
+
+  logout(){
+    this.clearUserContext('accessToken');
+    this.clearUserContext('refreshToken');
+    this.clearUserContext('userId');
+    this.setUsername('');
   }
 
   updateUser(id: number, user: User): Observable<User> {

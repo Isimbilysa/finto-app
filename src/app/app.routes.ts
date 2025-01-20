@@ -7,6 +7,7 @@ import { CreateAssetComponent } from './pages/dashboard/assets/create-asset/crea
 import { ListAssetsComponent } from './pages/dashboard/assets/list-assets/list-assets.component';
 import { PortfolioComponentComponent } from './pages/dashboard/portfolio/portfolio.component/portfolio.component.component';
 import { AssetComponentComponent } from './pages/dashboard/assets/asset.component/asset.component.component';
+import { AuthGuard } from './auth.guard';
 
 export const routes: Routes = [
   { path: 'signin', component: SigninComponent },
@@ -19,5 +20,6 @@ export const routes: Routes = [
       { path: 'portfolio', component: PortfolioComponentComponent },
       { path: 'assets', component: ListAssetsComponent },
     ],
+    canActivate: [AuthGuard]
   },
 ];

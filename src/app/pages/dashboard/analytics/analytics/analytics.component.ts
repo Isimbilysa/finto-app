@@ -9,7 +9,7 @@ import { HeaderComponetComponent } from '../../../../common/navigation/header/he
 @Component({
   selector: 'app-analytics',
   standalone: true, 
-  imports: [ChartModule, CardModule, DividerModule, CommonModule, SideNavComponent, HeaderComponetComponent],
+  imports: [ChartModule, CardModule, DividerModule, CommonModule, SideNavComponent],
   templateUrl: './analytics.component.html',
   styleUrls: ['./analytics.component.css'] 
 })
