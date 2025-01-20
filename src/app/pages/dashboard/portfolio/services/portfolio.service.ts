@@ -8,7 +8,7 @@ import { UtilService } from '../../../../utils/util.service';
   providedIn: 'root',
 })
 export class PortfolioService {
-  private baseUrl = 'http://localhost:9000/api/v1/assets'; // Replace with your backend URL
+  private baseUrl = 'http://localhost:9000/api/v1/portfolios';
 
   constructor(private http: HttpClient, private cookieService: CookieService, private utilService: UtilService) {}
 
@@ -29,6 +29,17 @@ export class PortfolioService {
       }).pipe(
         map((response) => response.data), 
         catchError(this.utilService.handleError) 
+      );
+    }
+    
+    deletePortfolio(): Observable<any>{
+      return this.http.delete<any>(`${this.baseUrl}/portfolios`, {
+        headers: {
+          Authorization: 'Bearer'+ this.cookieService.get('accessToken'),
+        },
+      }).pipe(
+        map((response) => response.data), 
+        catchError(this.utilService.handleError)
       );
     }
 

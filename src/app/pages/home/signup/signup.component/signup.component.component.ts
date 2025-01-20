@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
@@ -19,8 +19,10 @@ import { PasswordModule } from 'primeng/password';
 export class SignupComponent {
   constructor(
     private messageService: MessageService,
-    private userService: UserServiceService
+    private userService: UserServiceService,
+    private router : Router
   ) {}
+  
   formData = {
     firstName: '',
     lastName: '',
@@ -47,12 +49,12 @@ export class SignupComponent {
       .pipe()
       .subscribe({
         next: (response) => {
-          console.log('User created successfully:', response);
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
             detail: 'Account registered successfully, welcome!',
           });
+          this.router.navigate(['/signin']); 
         },
         error: (error) => {
           console.error('Error creating user:', error);

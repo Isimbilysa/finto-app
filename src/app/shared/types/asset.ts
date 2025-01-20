@@ -1,8 +1,12 @@
+import { Portfolio } from "./portfolio";
+
 export interface Asset {
     id:string,
     name : string, 
     description : string, 
     marketValue: number,
-    asset_type: string,
+    assetType: string,
+    assetStatus : string,
+    portfolio: Portfolio
     // assetStatus: string,
 }

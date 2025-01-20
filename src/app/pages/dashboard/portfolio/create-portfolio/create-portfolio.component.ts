@@ -53,9 +53,7 @@ export class CreatePortfolioComponent {
     this.visible = !this.visible;
   }
 
-  // onSubmit method to include validation for value
   onSubmit() {
-    // Ensure all fields are valid before submission
     if (this.asset.name && this.asset.category && this.asset.description) {
       const apiUrl = 'http://localhost:9000/api/v1/portfolios';
 

@@ -78,20 +78,13 @@
           <td class="px-4 py-3">
             <input type="checkbox" />
           </td>
-          <td class="px-4 py-3 flex items-center space-x-3">
-            <!-- <img
-              [src]="user.avatar"
-              alt="Avatar"
-              class="w-8 h-8 rounded-full"
-            /> -->
-            <div>
-              <p class="font-medium">{{ asset.name }}</p>
-              <!-- <p class="text-xs text-gray-500">{{ user.email }}</p> -->
-            </div>
+          <td class="px-4 py-3 space-x-3">
+            {{ asset.name }}
           </td>
           <td class="px-4 py-3">{{ asset.description }}</td>
-          <td class="px-4 py-3">{{ asset.asset_type }}</td>
-          <!-- <td class="px-4 py-3">{{ asset.status }}</td> -->
+          <td class="px-4 py-3">{{ asset.assetType }}</td>
+          <td class="px-4 py-3">{{ asset.portfolio.name }}</td>
+          <td class="px-4 py-3">{{ asset.assetStatus }}</td>
           <!-- <td class="px-4 py-3">
             <span
             class="px-4 py-2 rounded-full"
@@ -105,7 +98,10 @@
           </td> -->
           <td class="px-4 py-3 text-right">
             <div class="flex gap-2 justify-center">
-              <i class="pi pi-trash text-red-500 text-xl"></i>
+              <i
+                class="pi pi-trash text-red-500 text-xl"
+                (click)="delete(asset.id)"
+              ></i>
               <i class="pi pi-pencil text-green-500 text-xl"></i>
             </div>
           </td>

@@ -21,4 +21,16 @@ export class AssetService {
     );
   }
 
+  deleteAsset(id:string): Observable<any>{
+    console.log("heree");
+    return this.http.delete<any>(`${this.apiUrl}/assets/${id}`, {
+      headers: {
+        Authorization: 'Bearer'+ this.cookieService.get('accessToken'),
+      },
+    }).pipe(
+      map((response) => response.data),
+      catchError(this.utilService.handleError)
+    );
+  }
+
 }

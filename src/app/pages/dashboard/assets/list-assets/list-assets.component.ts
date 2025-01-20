@@ -36,11 +36,13 @@ export class ListAssetsComponent implements OnInit{
     });
   }
 
-
-  
-
   visible = true;
   toggleDialog() {
     this.visible = !this.visible;
+  }
+
+  delete(id:string){
+    console.log('Deleting asset with id:', id); 
+    this.assetService.deleteAsset(id);
   }
 }

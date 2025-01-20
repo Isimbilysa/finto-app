@@ -34,7 +34,7 @@ export class CreatePortfolioComponent {
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private portfolioService: PortfolioService,
-    private messageService: MessageService // Optional for notifications
+    private messageService: MessageService 
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
     this.loadCategories();
