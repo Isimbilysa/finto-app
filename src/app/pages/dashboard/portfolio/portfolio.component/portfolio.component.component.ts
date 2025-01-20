@@ -6,6 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { PortfolioService } from '../services/portfolio.service';
 import { Portfolio } from '../../../../shared/types/portfolio';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-portfolio-component',
   templateUrl: './portfolio.component.component.html',
@@ -14,7 +15,7 @@ import { Portfolio } from '../../../../shared/types/portfolio';
   imports: [CommonModule,SideNavComponent, CreatePortfolioComponent, ButtonModule,ToastModule ], 
 })
 export class PortfolioComponentComponent {
-  constructor(private portfolioService: PortfolioService){}
+  constructor(private portfolioService: PortfolioService, private messageService : MessageService){}
     portfolios: Portfolio[] | null = null;
   
   ngOnInit(): void {
@@ -25,6 +26,17 @@ export class PortfolioComponentComponent {
       },
       error: (err) => {
         console.error('Failed to fetch assets:', err);
+      },
+    });
+  }
+
+  delete(id:string){
+    this.portfolioService.deleteAsset(id).subscribe({
+      next: (data) => {
+        this.messageService.add({severity:'success', summary:'Success', detail:'Portfolio deleted successfully!'});
+      },
+      error: (err) => {
+        this.messageService.add({severity:'error', summary:'Error', detail:err.message});
       },
     });
   }

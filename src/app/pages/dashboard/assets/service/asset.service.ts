@@ -8,29 +8,35 @@ import { UtilService } from '../../../../utils/util.service';
   providedIn: 'root',
 })
 export class AssetService {
-  constructor(private http: HttpClient, private cookieService: CookieService, private utilService: UtilService) {}
+  constructor(
+    private http: HttpClient,
+    private cookieService: CookieService,
+    private utilService: UtilService
+  ) {}
   private apiUrl = 'http://localhost:9000/api/v1/';
   getAssets(): Observable<any> {
-    return this.http.get<any>(this.apiUrl + 'assets', {
-      headers: {
-        Authorization: 'Bearer ' + this.cookieService.get('accessToken'),
-      },
-    }).pipe(
-      map((response) => response.data), // Extract the data property
-      catchError(this.utilService.handleError) // Handle errors
-    );
+    return this.http
+      .get<any>(this.apiUrl + 'assets', {
+        headers: {
+          Authorization: 'Bearer ' + this.cookieService.get('accessToken'),
+        },
+      })
+      .pipe(
+        map((response) => response.data),
+        catchError(this.utilService.handleError)
+      );
   }
 
-  deleteAsset(id:string): Observable<any>{
-    console.log("heree");
-    return this.http.delete<any>(`${this.apiUrl}/assets/${id}`, {
-      headers: {
-        Authorization: 'Bearer'+ this.cookieService.get('accessToken'),
-      },
-    }).pipe(
-      map((response) => response.data),
-      catchError(this.utilService.handleError)
-    );
+  deleteAsset(id: string): Observable<any> {
+    return this.http
+      .delete<any>(`${this.apiUrl}assets/${id}`, {
+        headers: {
+          Authorization: 'Bearer ' + this.cookieService.get('accessToken'),
+        },
+      })
+      .pipe(
+        map((response) => response.data),
+        catchError(this.utilService.handleError)
+      );
   }
-
 }

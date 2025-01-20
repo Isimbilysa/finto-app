@@ -32,17 +32,18 @@ export class PortfolioService {
       );
     }
     
-    deletePortfolio(): Observable<any>{
-      return this.http.delete<any>(`${this.baseUrl}/portfolios`, {
-        headers: {
-          Authorization: 'Bearer'+ this.cookieService.get('accessToken'),
-        },
-      }).pipe(
-        map((response) => response.data), 
-        catchError(this.utilService.handleError)
-      );
+    deleteAsset(id: string): Observable<any> {
+      return this.http
+        .delete<any>(`${this.apiUrl}portfolios/${id}`, {
+          headers: {
+            Authorization: 'Bearer ' + this.cookieService.get('accessToken'),
+          },
+        })
+        .pipe(
+          map((response) => response.data),
+          catchError(this.utilService.handleError)
+        );
     }
-
   getCategories(): Observable<any> {
     return this.http.get(`${this.baseUrl}/categories`);
   }
