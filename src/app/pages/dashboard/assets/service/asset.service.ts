@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { UtilService } from '../../../../utils/util.service';
+import { Asset } from '../../../../shared/types/asset';
 
 @Injectable({
   providedIn: 'root',
@@ -27,6 +28,19 @@ export class AssetService {
       );
   }
 
+  getAsset(id:string): Observable<any> {
+    return this.http
+      .get<any>(this.apiUrl + 'assets/' + id, {
+        headers: {
+          Authorization: 'Bearer ' + this.cookieService.get('accessToken'),
+        },
+      })
+      .pipe(
+        map((response) => response.data),
+        catchError(this.utilService.handleError)
+      );
+  }
+
   deleteAsset(id: string): Observable<any> {
     return this.http
       .delete<any>(`${this.apiUrl}assets/${id}`, {
@@ -40,5 +54,12 @@ export class AssetService {
       );
   }
 
+  editAsset(asset : Asset, id:string){
+    return this.http.put(`${this.apiUrl}/assets/${id}`, JSON.stringify(asset), {
+      headers: {
+        'Authorization' : 'Bearer'+ this.cookieService.get('accessToken')
+      }
+    });
+  }
 
 }

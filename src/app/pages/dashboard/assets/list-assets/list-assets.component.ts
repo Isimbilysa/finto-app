@@ -8,6 +8,7 @@ import { AssetService } from '../service/asset.service';
 import { Asset } from '../../../../shared/types/asset';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { UpdateAssetComponent } from '../update-asset/update-asset.component';
 
 @Component({
   selector: 'app-list-assets',
@@ -17,7 +18,8 @@ import { MessageService } from 'primeng/api';
     ButtonModule,
     DialogModule,
     CreateAssetComponent,
-    ToastModule
+    ToastModule, 
+    UpdateAssetComponent
   ],
   templateUrl: './list-assets.component.html',
   styleUrl: './list-assets.component.css',
