@@ -19,7 +19,7 @@ import { UpdateAssetComponent } from '../update-asset/update-asset.component';
     DialogModule,
     CreateAssetComponent,
     ToastModule, 
-    UpdateAssetComponent
+    UpdateAssetComponent  
   ],
   templateUrl: './list-assets.component.html',
   styleUrl: './list-assets.component.css',

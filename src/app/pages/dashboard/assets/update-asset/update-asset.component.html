@@ -1,124 +1,130 @@
-<p-button (click)="toggleDialog()" label="Update" />
-<!-- <i class="pi pi-pencil text-green-500 text-xl"></i> -->
+<!-- <p-button label="Update" p-button> -->
+<i class="pi pi-pencil text-green-500 text-xl" (click)="toggleDialog()"></i>
+
 <p-dialog
   header="Update Asset"
   *ngIf="isBrowser"
-  [modal]="true"
   [modal]="true"
   [(visible)]="visible"
   [style]="{ width: '25rem' }"
   class=""
 >
-  <div class="p-card p-2">
-    <form (ngSubmit)="onSubmit()" #assetForm="ngForm" class="p-fluid">
-      <div class="field mb-4">
-        <label for="assetName" class="font-semibold text-sm">Asset Name</label>
+<div class="p-card p-2">
+  <form (ngSubmit)="onSubmit()" #assetForm="ngForm" class="p-fluid">
+    <div class="field mb-4">
+      <label for="assetName" class="font-semibold text-sm">Asset Name</label>
 
-        <input
-          pInputText
-          id="assetName"
-          name="assetName"
-          [(ngModel)]="asset.name"
-          required
-          class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-green-500"
-          placeholder="Enter asset name"
-          autocomplete="off"
-        />
-        <small
-          *ngIf="assetForm.submitted && !assetForm.controls['assetName']?.valid"
-          class="p-error"
-        >
-          Asset name is required.
-        </small>
-      </div>
-
-      <div class="field mb-4">
-        <label for="description" class="font-semibold text-sm">Description</label>
-        <input
-          pInputText
-          id="description"
-          name="description"
-          [(ngModel)]="asset.description"
-          class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-green-500 focus:border-green-500"
-          placeholder="Enter description"
-          autocomplete="off"
-        />
-      </div>
-
-      <div class="field mb-4 space-y-2">
-        <label for="category" class="font-semibold mr-4 block text-sm">Category</label>
-        <p-dropdown
-        id="asset_type"
-        name="asset_type"
-        [(ngModel)]="asset.asset_type"
-        [options]="categoryOptions"
-        placeholder="Select a type"
+      <input
+        pInputText
+        id="assetName"
+        name="assetName"
+        [(ngModel)]="asset.name"
         required
-      ></p-dropdown>
-        <small
-          *ngIf="assetForm.submitted && !assetForm.controls['category']?.valid"
-          class="p-error"
-        >
-          Category is required.
-        </small>
-      </div>
+        class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-green-500"
+        placeholder="Enter asset name"
+        autocomplete="off"
+      />
+      <small
+        *ngIf="assetForm.submitted && !assetForm.controls['assetName']?.valid"
+        class="p-error"
+      >
+        Asset name is required.
+      </small>
+    </div>
 
-      <div class="field mb-4">
-        <label for="number" class="font-semibold text-sm">Market Value</label>
-        <input
-          pInputText
-          id="number"
-          name="marketValue"
-          [(ngModel)]="asset.marketValue"
-          class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-green-500 focus:border-green-500"
-          placeholder="Enter market value for asset"
-          autocomplete="off"
-        />
-      </div>
-      <div class="field mb-4 space-y-2">
-        <label for="category" class="font-semibold mr-4 block text-sm"
-          >Portfolio</label
-        >
+    <div class="field mb-4">
+      <label for="description" class="font-semibold text-sm">Description</label>
+      <input
+        pInputText
+        id="description"
+        name="description"
+        [(ngModel)]="asset.description"
+        class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-green-500 focus:border-green-500"
+        placeholder="Enter description number"
+        autocomplete="off"
+      />
+    </div>
+
+    <div class="field mb-4 space-y-2">
+      <label for="category" class="font-semibold mr-4 block text-sm"
+        >Category</label
+      >
       <p-dropdown
-      [(ngModel)]="selectedPortfolioId"
-      [options]="portfolios"
-      name="portfolio"
-      placeholder="Select a portfolio"
+      id="asset_type"
+      name="asset_type"
+      [(ngModel)]="asset.asset_type"
+      [options]="categoryOptions"
+      placeholder="Select a type"
       required
     ></p-dropdown>
+      <small
+        *ngIf="assetForm.submitted && !assetForm.controls['category']?.valid"
+        class="p-error"
+      >
+        Category is required.
+      </small>
     </div>
-      <div class="field mb-4 space-y-2">
-        <label for="purchaseDate" class="font-semibold text-sm block">Purchase Date</label>
-        <p-datepicker
-          [(ngModel)]="asset.purchaseDate"
-          dateFormat="yy-mm-dd"
-          showIcon
-          name="purchaseDate"
-          class="mt-2"
-        />
 
-        <small
-          *ngIf="
-            assetForm.submitted && !assetForm.controls['purchaseDate']?.valid
-          "
-          class="p-error"
-        >
-          Purchase date is required.
-        </small>
-      </div>
-        <!-- Buttons -->
-      <div class="flex justify-end gap-2">
-        <p-button
-          label="Cancel"
-          severity="secondary"
-          (click)="onCancel()"
-        ></p-button>
-        <p-button
-          label="Register"
-          type="submit"
-          [disabled]="assetForm.invalid"
-        ></p-button>
-      </div>
-    </form>
+    <div class="field mb-4">
+      <label for="number" class="font-semibold text-sm">Market Value</label>
+      <input
+        pInputText
+        id="number"
+        name="marketValue"
+        [(ngModel)]="asset.marketValue"
+        class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-green-500 focus:border-green-500"
+        placeholder="Enter market value for asset"
+        autocomplete="off"
+      />
+    </div>
+    <div class="field mb-4 space-y-2">
+      <label for="category" class="font-semibold mr-4 block text-sm"
+        >Portfolio</label
+      >
+    <p-dropdown
+    [(ngModel)]="selectedPortfolioId"
+    [options]="portfolios"
+    name="portfolio"
+    placeholder="Select a portfolio"
+    required
+  ></p-dropdown>
   </div>
+    <div class="field mb-4 space-y-2">
+      <label for="purchaseDate" class="font-semibold text-sm block">Purchase Date</label>
+      <p-datepicker
+        [(ngModel)]="asset.purchaseDate"
+        dateFormat="yy-mm-dd"
+        showIcon
+        name="purchaseDate"
+        class="mt-2"
+      />
+
+      <small
+        *ngIf="
+          assetForm.submitted && !assetForm.controls['purchaseDate']?.valid
+        "
+        class="p-error"
+      >
+        Purchase date is required.
+      </small>
+    </div>
+
+   
+
+  
+    <!-- Buttons -->
+    <div class="flex justify-end gap-2">
+      <p-button
+        label="Cancel"
+        severity="secondary"
+        (click)="onCancel()"
+      ></p-button>
+      <p-button
+        label="Register"
+        type="submit"
+        [disabled]="assetForm.invalid"
+      ></p-button>
+    </div>
+  </form>
+</div>
 </p-dialog>

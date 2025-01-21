@@ -96,15 +96,13 @@
               {{ asset.status }}
             </span>
           </td> -->
-          <td class="px-4 py-3 text-right">
+          <td class="px-4 py-3 ">
             <div class="flex gap-2 justify-center">
               <i
                 class="pi pi-trash text-red-500 text-xl"
                 (click)="delete(asset.id)"
               ></i>
-              <app-create-asset></app-create-asset>
-              <!-- <i class="pi pi-pencil text-green-500 text-xl"></i> -->
-               <app-update-asset></app-update-asset>
+               <app-update-asset [asset]="asset"></app-update-asset>
             </div>
           </td>
         </tr>

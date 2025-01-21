@@ -1,117 +1,68 @@
-import { Component, Inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { DropdownModule } from 'primeng/dropdown';
-import { ToastModule } from 'primeng/toast';
-import { DatePickerModule } from 'primeng/datepicker';
-import { PortfolioService } from '../../portfolio/services/portfolio.service';
-import { AnyAaaaRecord } from 'dns';
-import { Portfolio } from '../../../../shared/types/portfolio';
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { CookieService } from 'ngx-cookie-service';
-import { MessageService } from 'primeng/api';
-import { AssetService } from '../service/asset.service';
 import { Asset } from '../../../../shared/types/asset';
+import { DropdownModule } from 'primeng/dropdown';
+import { DatePicker } from 'primeng/datepicker';
+import { AssetService } from '../service/asset.service';
+import { PortfolioService } from '../../portfolio/services/portfolio.service';
+import { Portfolio } from '../../../../shared/types/portfolio';
+
 @Component({
   selector: 'app-update-asset',
-  imports: [
-    ButtonModule,
-    DialogModule,
-    CommonModule,
-    FormsModule,
-    DropdownModule,
-    DatePickerModule,
-    ToastModule,
-  ],
-  templateUrl: './create-asset.component.html',
+  imports: [ButtonModule, FormsModule, DialogModule, CommonModule, DropdownModule, DatePicker],
+  templateUrl: './update-asset.component.html',
+  styleUrl: './update-asset.component.css',
 })
 export class UpdateAssetComponent implements OnInit {
-  constructor(
-    @Inject(PLATFORM_ID) private platformId: Object,
-    private assetService: AssetService,
-    private messageService: MessageService
-  ) {
-    this.isBrowser = isPlatformBrowser(platformId);
-    this.categoryOptions = this.categories.map((category) => ({
-      label: category, // The display label
-      value: category, // The actual value
-    }));
-  }
-  asset: Asset = {
-    id: '',
-    name: '',
-    description: '',
-    marketValue: 0,
-    assetType: '',
-    assetStatus: '',
-    portfolio: {
-      id: '',
-      name: '',
-      category: '',
-      description: '',
-      createdAt: '',
-    },
-  };
-  ngOnInit(): void {
-    this.assetService.getAssets().subscribe({
-      next: (data) => {
-        this.asset = data;
-      },
-      error: (err) => {
-        console.error('Failed to fetch assets:', err);
-      },
-    });
-  }
-  assetId = '';
-
-  portfolios: { label: string; value: number }[] = [];
+  @Input() asset! : any;
+  visible = false;
+  isBrowser: boolean = false;
   selectedPortfolioId: number | null = null;
-  private baseUrl: string = 'http://localhost:9000/api/v1/assets';
-  visible = true;
+  categories = ['REAL_ESTATE', 'BUSINESS', 'STOCK', 'CRYPTOCURRENCY'];
+  categoryOptions: { label: string; value: string }[] = [];
+
   toggleDialog() {
     this.visible = !this.visible;
   }
-
-  categoryOptions: { label: string; value: string }[] = [];
-
-  categories = ['REAL_ESTATE', 'BUSINESS', 'STOCK', 'CRYPTOCURRENCY'];
+  onCancel() {
+    this.visible = false;
+  }
+  portfolios: { label: string; value: number }[] = [];
+  
 
   onSubmit() {
-    if (this.asset.name && this.asset.assetType && this.asset.description) {
-      this.assetService.editAsset(this.asset, this.assetId).subscribe({
-        next: (response) => {
-          console.log('Asset registered successfully:', response);
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Success',
-            detail: 'Asset created successfully!',
-          });
-          this.visible = false;
-        },
-        error: (error) => {
-          console.error('Error registering asset:', error);
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'Failed to register the portfolio. Please try again.',
-          });
-        },
-      });
-    } else {
-      //   this.messageService.add({
-      //     severity: 'warn',
-      //     summary: 'Validation Warning',
-      //     detail: 'Please fill in all fields before submitting.',
-      //   });
-    }
+    this.assetService.editAsset(this.asset, this.asset.id).subscribe({
+      next: () => {
+        console.log('Asset updated successfully');
+        this.visible = false;
+      },
+      error: (error) => {
+        console.error('Error updating asset:', error);
+      },
+    })
   }
-
-  onCancel() {
-    // Reset or close the form
-    console.log('Registration canceled');
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private assetService: AssetService, private portfolioService : PortfolioService) {
+    this.isBrowser = isPlatformBrowser(platformId);
+    this.categoryOptions = this.categories.map((category) => ({
+      label: category,
+      value: category, 
+    }));
   }
-  isBrowser: boolean;
+  ngOnInit(): void {
+     this.portfolioService.getPortfolios().subscribe(
+          (data:any) => {
+            this.portfolios = data.map((portfolio:Portfolio) => ({
+              label: portfolio.name, 
+              value: portfolio.id, 
+            }));
+          },
+          (error:any) => {
+            console.error('Error fetching portfolios:', error);
+          }
+        );
+    throw new Error('Method not implemented.');
+  }
 }

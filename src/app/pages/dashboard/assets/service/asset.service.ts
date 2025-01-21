@@ -28,6 +28,13 @@ export class AssetService {
       );
   }
 
+  assetBody = {
+    name: '',
+    description: '',
+    marketValue: 0,
+    asset_type: ''
+  }
+
   getAsset(id:string): Observable<any> {
     return this.http
       .get<any>(this.apiUrl + 'assets/' + id, {
@@ -55,9 +62,15 @@ export class AssetService {
   }
 
   editAsset(asset : Asset, id:string){
-    return this.http.put(`${this.apiUrl}/assets/${id}`, JSON.stringify(asset), {
+    this.assetBody = {
+      name: asset.name,
+      description: asset.description,
+      marketValue: asset.marketValue,
+      asset_type: asset.assetType
+    }
+    return this.http.put(`${this.apiUrl}assets/${id}`,this.assetBody, {
       headers: {
-        'Authorization' : 'Bearer'+ this.cookieService.get('accessToken')
+        'Authorization' : 'Bearer '+ this.cookieService.get('accessToken')
       }
     });
   }

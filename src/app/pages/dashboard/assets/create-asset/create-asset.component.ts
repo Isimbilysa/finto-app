@@ -39,8 +39,8 @@ export class CreateAssetComponent implements OnInit {
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
     this.categoryOptions = this.categories.map((category) => ({
-      label: category, // The display label
-      value: category, // The actual value
+      label: category,
+      value: category, 
     }));
   }
   portfolios: { label: string; value: number }[] = [];
