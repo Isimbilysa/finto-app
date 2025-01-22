@@ -5,14 +5,14 @@
   <!-- Main Content -->
   <div class="grid p-6 w-4/5 bg-white shadow-lg rounded-lg">
     <!-- Header -->
-    <h1 class="text-3xl font-bold mb-2 text-gray-800">Portfolio</h1>
-    <nav class="text-gray-500 text-sm mb-4">
+    <h1 class="text-3xl font-bold text-gray-800">Portfolio</h1>
+    <nav class="text-gray-500 text-sm">
       <span class="hover:text-blue-500 cursor-pointer">Dashboard</span> &gt;
       <span class="hover:text-blue-500 cursor-pointer">User</span> &gt; List
     </nav>
 
     <!-- Filters and Actions -->
-    <div class="flex justify-between items-center mb-6">
+    <div class="flex justify-between items-center">
       <div class="flex space-x-3">
         <button
           class="px-4 py-2 rounded-md bg-gray-100 text-gray-700 shadow hover:bg-gray-200 transition"
@@ -49,7 +49,7 @@
       <input
         type="text"
         [(ngModel)]="searchTerm"
-        placeholder="Search by name, email, or company..."
+        placeholder="Search by name"
         class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
       <button

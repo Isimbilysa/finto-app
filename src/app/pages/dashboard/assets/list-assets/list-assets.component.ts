@@ -9,6 +9,7 @@ import { Asset } from '../../../../shared/types/asset';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { UpdateAssetComponent } from '../update-asset/update-asset.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-list-assets',
@@ -19,7 +20,8 @@ import { UpdateAssetComponent } from '../update-asset/update-asset.component';
     DialogModule,
     CreateAssetComponent,
     ToastModule, 
-    UpdateAssetComponent  
+    UpdateAssetComponent, 
+    FormsModule
   ],
   templateUrl: './list-assets.component.html',
   styleUrl: './list-assets.component.css',
@@ -27,11 +29,48 @@ import { UpdateAssetComponent } from '../update-asset/update-asset.component';
 export class ListAssetsComponent implements OnInit{
   constructor(private assetService : AssetService, private messageService : MessageService){}
   assets: Asset[] | null = null;
+  searchTerm: string = '';
+  Math = Math;
+  totalItems = this.assets?.length; 
+  pageSize = 10; 
+  currentPage = 0;
+  pageCount : number = 0;
+  get totalPages(): number[] {
+    this.pageCount = Math.ceil(this.totalItems? this.totalItems / this.pageSize : 0);
+    return Array.from({ length: this.pageCount }, (_, index) => index); // Creates an array [0, 1, 2, ...]
+  }
+
+  onPageChange(page: number): void {
+    this.currentPage = page;
+    console.log(`Current Page: ${page + 1}`);
+  }
+
+  loadPortfolios(): void {
+    this.assetService
+      .getAssetsPaginated(this.currentPage, this.pageSize, this.searchTerm)
+      .subscribe({
+        next: (data) => {
+          this.assets = data.content;           
+          this.totalItems = data.totalElements; 
+          this.pageCount = data.totalPages;
+        },
+        error: (err) => {
+          console.error('Failed to fetch portfolios:', err);
+        },
+      });
+  }
+
+  search(): void {
+    this.currentPage = 0; 
+    this.loadPortfolios();
+  }
+  
   ngOnInit(): void {
     this.assetService.getAssets().subscribe({
       next: (data) => {
         this.assets = data; // Assign the fetched data
         console.log('Assets loaded:', this.assets);
+        this.totalItems = data.length;
       },
       error: (err) => {
         console.error('Failed to fetch assets:', err);

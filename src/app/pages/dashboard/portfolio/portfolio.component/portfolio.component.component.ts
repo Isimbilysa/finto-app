@@ -33,19 +33,6 @@ export class PortfolioComponentComponent {
     this.currentPage = page;
     console.log(`Current Page: ${page + 1}`);
   }
-  
-  ngOnInit(): void {
-    this.portfolioService.getPortfolios().subscribe({
-      next: (data) => {
-        this.portfolios = data; 
-        console.log('Assets loaded:', this.portfolios);
-        this.totalItems = data.length;
-      },
-      error: (err) => {
-        console.error('Failed to fetch assets:', err);
-      },
-    });
-  }
 
   loadPortfolios(): void {
     this.portfolioService
@@ -66,6 +53,21 @@ export class PortfolioComponentComponent {
     this.currentPage = 0; 
     this.loadPortfolios();
   }
+  
+  ngOnInit(): void {
+    this.portfolioService.getPortfolios().subscribe({
+      next: (data) => {
+        this.portfolios = data; 
+        console.log('Assets loaded:', this.portfolios);
+        this.totalItems = data.length;
+      },
+      error: (err) => {
+        console.error('Failed to fetch assets:', err);
+      },
+    });
+  }
+
+
 
 
   delete(id:string){
