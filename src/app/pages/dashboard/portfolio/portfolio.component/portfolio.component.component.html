@@ -94,14 +94,13 @@
           <td class="px-4 py-3">{{ portfolio.createdAt }}</td>
           <td class="px-4 py-3">{{ portfolio.category }}</td>
 
-          <td class="px-4 py-3 text-right">
-            <button class="text-gray-500 hover:text-blue-500">
+          <td class="px-4 py-3">
               <i
                 class="pi pi-trash text-red-500 text-xl"
                 (click)="delete(portfolio.id)"
               ></i>
-              <i class="pi pi-pencil text-green-500 text-xl"></i>
-            </button>
+              <!-- <i class="pi pi-pencil text-green-500 text-xl"></i> -->
+               <app-update-portfolio [portfolio] = "portfolio"></app-update-portfolio>
           </td>
         </tr>
       </tbody>

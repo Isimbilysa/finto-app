@@ -3,12 +3,19 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, map, Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { UtilService } from '../../../../utils/util.service';
+import { Portfolio } from '../../../../shared/types/portfolio';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PortfolioService {
   private baseUrl = 'http://localhost:9000/api/v1/portfolios';
+
+  portfolioBody = {
+    name: '',
+    category: '',
+    description: '',
+  }
 
   constructor(private http: HttpClient, private cookieService: CookieService, private utilService: UtilService) {}
 
@@ -67,4 +74,16 @@ export class PortfolioService {
       );
   }
   
+    editPortfolio(portfolio : Portfolio, id:string){
+      this.portfolioBody = {
+        name: portfolio.name,
+        category: portfolio.category,
+        description: portfolio.description,
+      }
+      return this.http.put(`${this.apiUrl}portfolios/${id}`,this.portfolioBody, {
+        headers: {
+          'Authorization' : 'Bearer '+ this.cookieService.get('accessToken')
+        }
+      });
+    }
 }

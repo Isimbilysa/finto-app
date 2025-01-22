@@ -8,12 +8,13 @@ import { PortfolioService } from '../services/portfolio.service';
 import { Portfolio } from '../../../../shared/types/portfolio';
 import { MessageService } from 'primeng/api';
 import { FormsModule } from '@angular/forms';
+import { UpdatePortfolioComponent } from '../update-portfolio/update-portfolio.component';
 @Component({
   selector: 'app-portfolio-component',
   templateUrl: './portfolio.component.component.html',
   styleUrls: ['./portfolio.component.component.css'],
   standalone: true,
-  imports: [CommonModule,SideNavComponent, CreatePortfolioComponent, ButtonModule,ToastModule , FormsModule], 
+  imports: [CommonModule,SideNavComponent, CreatePortfolioComponent, ButtonModule,ToastModule , FormsModule, UpdatePortfolioComponent], 
 })
 export class PortfolioComponentComponent {
   constructor(private portfolioService: PortfolioService, private messageService : MessageService){}
