@@ -7,28 +7,66 @@ import { ToastModule } from 'primeng/toast';
 import { PortfolioService } from '../services/portfolio.service';
 import { Portfolio } from '../../../../shared/types/portfolio';
 import { MessageService } from 'primeng/api';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-portfolio-component',
   templateUrl: './portfolio.component.component.html',
   styleUrls: ['./portfolio.component.component.css'],
   standalone: true,
-  imports: [CommonModule,SideNavComponent, CreatePortfolioComponent, ButtonModule,ToastModule ], 
+  imports: [CommonModule,SideNavComponent, CreatePortfolioComponent, ButtonModule,ToastModule , FormsModule], 
 })
 export class PortfolioComponentComponent {
   constructor(private portfolioService: PortfolioService, private messageService : MessageService){}
-    portfolios: Portfolio[] | null = null;
+  portfolios: Portfolio[] | null = null;
+  searchTerm: string = '';
+  Math = Math;
+  totalItems = this.portfolios?.length; 
+  pageSize = 10; 
+  currentPage = 0;
+  pageCount : number = 0;
+  get totalPages(): number[] {
+    this.pageCount = Math.ceil(this.totalItems? this.totalItems / this.pageSize : 0);
+    return Array.from({ length: this.pageCount }, (_, index) => index); // Creates an array [0, 1, 2, ...]
+  }
+
+  onPageChange(page: number): void {
+    this.currentPage = page;
+    console.log(`Current Page: ${page + 1}`);
+  }
   
   ngOnInit(): void {
     this.portfolioService.getPortfolios().subscribe({
       next: (data) => {
         this.portfolios = data; 
         console.log('Assets loaded:', this.portfolios);
+        this.totalItems = data.length;
       },
       error: (err) => {
         console.error('Failed to fetch assets:', err);
       },
     });
   }
+
+  loadPortfolios(): void {
+    this.portfolioService
+      .getPortfoliosPaginated(this.currentPage, this.pageSize, this.searchTerm)
+      .subscribe({
+        next: (data) => {
+          this.portfolios = data.content;           
+          this.totalItems = data.totalElements; 
+          this.pageCount = data.totalPages;
+        },
+        error: (err) => {
+          console.error('Failed to fetch portfolios:', err);
+        },
+      });
+  }
+
+  search(): void {
+    this.currentPage = 0; 
+    this.loadPortfolios();
+  }
+
 
   delete(id:string){
     this.portfolioService.deleteAsset(id).subscribe({

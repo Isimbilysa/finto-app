@@ -48,11 +48,13 @@
     <div class="flex items-center mb-6">
       <input
         type="text"
+        [(ngModel)]="searchTerm"
         placeholder="Search by name, email, or company..."
         class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
       <button
         class="ml-2 px-4 py-2 rounded-md bg-blue-500 text-white shadow-lg hover:bg-blue-600 transition"
+        (click)="search()"
       >
         Search
       </button>
@@ -94,8 +96,11 @@
 
           <td class="px-4 py-3 text-right">
             <button class="text-gray-500 hover:text-blue-500">
-              <i class="pi pi-trash text-red-500 text-xl" (click)="delete(portfolio.id)"></i>
-              <i class="pi pi-pencil text-green-500 text-xl"></i>       
+              <i
+                class="pi pi-trash text-red-500 text-xl"
+                (click)="delete(portfolio.id)"
+              ></i>
+              <i class="pi pi-pencil text-green-500 text-xl"></i>
             </button>
           </td>
         </tr>
@@ -103,15 +108,23 @@
     </table>
 
     <!-- Footer -->
-    <div class="flex justify-between items-center mt-6 text-gray-600 text-sm">
-      <label class="flex items-center space-x-2">
+    <div class="flex items-center mt-6 text-gray-600 text-sm">
+      <!-- <label class="flex items-center space-x-2">
         <input type="checkbox" />
         <span>Dense</span>
-      </label>
-      <div>
+      </label> -->
+      <!-- <div>
         Rows per page: <span class="font-medium">5</span>
         <span class="ml-2">1–5 of 20</span>
-      </div>
+      </div> -->
+      <button
+        *ngFor="let page of totalPages; let i = index"
+        (click)="onPageChange(i)"
+        [class.bg-blue-500]="i === currentPage"
+        class="px-3 py-1 rounded-md mx-1 border border-gray-300"
+      >
+        {{ i + 1 }}
+      </button>
     </div>
   </div>
 </div>
