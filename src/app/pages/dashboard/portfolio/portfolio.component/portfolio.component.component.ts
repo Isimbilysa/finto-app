@@ -9,29 +9,47 @@ import { Portfolio } from '../../../../shared/types/portfolio';
 import { MessageService } from 'primeng/api';
 import { FormsModule } from '@angular/forms';
 import { UpdatePortfolioComponent } from '../update-portfolio/update-portfolio.component';
+import { RouterModule } from '@angular/router';
+
 @Component({
   selector: 'app-portfolio-component',
   templateUrl: './portfolio.component.component.html',
   styleUrls: ['./portfolio.component.component.css'],
   standalone: true,
-  imports: [CommonModule,SideNavComponent, CreatePortfolioComponent, ButtonModule,ToastModule , FormsModule, UpdatePortfolioComponent], 
+  imports: [
+    CommonModule,
+    SideNavComponent,
+    CreatePortfolioComponent,
+    ButtonModule,
+    ToastModule,
+    FormsModule,
+    UpdatePortfolioComponent,
+    RouterModule,
+  ],
 })
 export class PortfolioComponentComponent {
-  constructor(private portfolioService: PortfolioService, private messageService : MessageService){}
+  constructor(
+    private portfolioService: PortfolioService,
+    private messageService: MessageService
+  ) {}
   portfolios: Portfolio[] | null = null;
   searchTerm: string = '';
   Math = Math;
-  totalItems = this.portfolios?.length; 
-  pageSize = 10; 
+  totalItems = this.portfolios?.length;
+  pageSize = 5;
   currentPage = 0;
-  pageCount : number = 0;
+  pageCount: number = 0;
+
   get totalPages(): number[] {
-    this.pageCount = Math.ceil(this.totalItems? this.totalItems / this.pageSize : 0);
+    this.pageCount = Math.ceil(
+      this.totalItems ? this.totalItems / this.pageSize : 0
+    );
     return Array.from({ length: this.pageCount }, (_, index) => index); // Creates an array [0, 1, 2, ...]
   }
 
   onPageChange(page: number): void {
     this.currentPage = page;
+    this.loadPortfolios();
     console.log(`Current Page: ${page + 1}`);
   }
 
@@ -40,8 +58,8 @@ export class PortfolioComponentComponent {
       .getPortfoliosPaginated(this.currentPage, this.pageSize, this.searchTerm)
       .subscribe({
         next: (data) => {
-          this.portfolios = data.content;           
-          this.totalItems = data.totalElements; 
+          this.portfolios = data.content;
+          this.totalItems = data.totalElements;
           this.pageCount = data.totalPages;
         },
         error: (err) => {
@@ -51,33 +69,30 @@ export class PortfolioComponentComponent {
   }
 
   search(): void {
-    this.currentPage = 0; 
+    this.currentPage = 0;
     this.loadPortfolios();
   }
-  
+
   ngOnInit(): void {
-    this.portfolioService.getPortfolios().subscribe({
-      next: (data) => {
-        this.portfolios = data; 
-        console.log('Assets loaded:', this.portfolios);
-        this.totalItems = data.length;
-      },
-      error: (err) => {
-        console.error('Failed to fetch assets:', err);
-      },
-    });
+    this.loadPortfolios();
   }
 
-
-
-
-  delete(id:string){
+  delete(id: string) {
     this.portfolioService.deleteAsset(id).subscribe({
       next: (data) => {
-        this.messageService.add({severity:'success', summary:'Success', detail:'Portfolio deleted successfully!'});
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Portfolio deleted successfully!',
+        });
+        this.loadPortfolios();
       },
       error: (err) => {
-        this.messageService.add({severity:'error', summary:'Error', detail:err.message});
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: err.message,
+        });
       },
     });
   }

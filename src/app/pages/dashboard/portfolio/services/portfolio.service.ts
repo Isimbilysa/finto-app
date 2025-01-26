@@ -19,10 +19,11 @@ export class PortfolioService {
 
   constructor(private http: HttpClient, private cookieService: CookieService, private utilService: UtilService) {}
 
-  registerPortfolio(asset: any): Observable<any> {
+  public registerPortfolio(asset: any): Observable<any> {
     return this.http.post(`${this.baseUrl}`, asset,  {
         headers: {
-            'Authorization' : 'Bearer ' + this.cookieService.get('accessToken')
+            'Authorization' : 'Bearer ' + this.cookieService.get('accessToken'),
+            'ipAddress' : this.cookieService.get('ipAddress')
         }
     });
   }
@@ -44,6 +45,7 @@ export class PortfolioService {
         .delete<any>(`${this.apiUrl}portfolios/${id}`, {
           headers: {
             Authorization: 'Bearer ' + this.cookieService.get('accessToken'),
+            ipAddress : this.cookieService.get('ipAddress'),
           },
         })
         .pipe(
@@ -62,9 +64,10 @@ export class PortfolioService {
     };
   
     return this.http
-      .get<any>(`${this.apiUrl}portfolios/paginated`, {
+      .get<any>(`${this.apiUrl}portfolios/search`, {
         headers: {
           Authorization: 'Bearer ' + this.cookieService.get('accessToken'),
+          ipAddress : this.cookieService.get('ipAddress'),
         },
         params: params,
       })
@@ -82,7 +85,8 @@ export class PortfolioService {
       }
       return this.http.put(`${this.apiUrl}portfolios/${id}`,this.portfolioBody, {
         headers: {
-          'Authorization' : 'Bearer '+ this.cookieService.get('accessToken')
+          'Authorization' : 'Bearer '+ this.cookieService.get('accessToken'),
+          'ipAddress' : this.cookieService.get('ipAddresss')
         }
       });
     }

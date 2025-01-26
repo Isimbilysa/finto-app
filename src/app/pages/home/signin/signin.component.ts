@@ -36,9 +36,8 @@ export class SigninComponent {
     this.payload.password = this.formData.password;
     this.userService
       .login(this.payload)
-      .pipe()
       .subscribe({
-        next: (response) => {
+        next: (response:any) => {
           console.log('User Logged In successfully, welcome!', response);
           this.messageService.add({
             severity: 'success',

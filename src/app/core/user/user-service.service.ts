@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, Observable } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, switchMap } from 'rxjs';
 import { User } from '../../shared/types/user';
 import { LoginPayload } from '../../shared/types/login-payload';
 import { CookieService } from 'ngx-cookie-service';
@@ -13,7 +13,7 @@ export class UserServiceService {
   constructor(
     private http: HttpClient,
     private cookieService: CookieService,
-    private utilService :  UtilService
+    private utilService: UtilService
   ) {}
 
   private usernameSource = new BehaviorSubject<string>('');
@@ -24,7 +24,7 @@ export class UserServiceService {
   }
 
   private apiUrl = `http://localhost:9000/api/v1/`;
-
+  ipAddress  = '';
   setUserContext(key: string, value: string): void {
     this.cookieService.set(key, value, 7); // Expires in 7 days
   }
@@ -32,7 +32,7 @@ export class UserServiceService {
     return this.cookieService.get(key);
   }
 
-  isAuthenticated(){
+  isAuthenticated() {
     return !!this.getUserContext('accessToken');
   }
   clearUserContext(key: string): void {
@@ -58,12 +58,24 @@ export class UserServiceService {
   createUser(user: User): Observable<any> {
     return this.http.post(this.apiUrl + 'client/register', user);
   }
-
+ 
+  
   login(user: LoginPayload): Observable<any> {
-    return this.http.post(this.apiUrl + 'auth/login', user);
+    return this.utilService.getIpAddress().pipe(
+      switchMap((data: any) => {
+        this.ipAddress = data.ip; 
+        this.setUserContext("ipAddress", this.ipAddress);
+        return this.http.post(this.apiUrl + 'auth/login', user);
+      }),
+      catchError((error: any) => {
+        console.error('Error fetching IP address or logging in:', error);
+        throw error;
+      })
+    );
   }
 
-  logout(){
+
+  logout() {
     this.clearUserContext('accessToken');
     this.clearUserContext('refreshToken');
     this.clearUserContext('userId');
@@ -81,6 +93,4 @@ export class UserServiceService {
       .delete<void>(`${this.apiUrl}/${id}`)
       .pipe(catchError(this.utilService.handleError));
   }
-
- 
 }

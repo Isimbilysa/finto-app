@@ -1,45 +1,77 @@
-<div class="h-screen bg-gray-0 flex flex-col py-9 px-3">
-  <div class="flex items-center mb-4">
-    <div class="text-green-600 text-xl font-bold tracking-wide">FinTo.</div>
-  </div>
+<!-- Menu Icon for Smaller Screens -->
+<div class="fixed top-4 left-4 z-50 lg:hidden">
+  <button
+    (click)="toggleSideNav()"
+    class="text-gray-600 hover:text-green-500 transition-colors duration-300"
+  >
+    <i class="pi pi-bars text-2xl"></i>
+  </button>
+</div>
 
-  <p class="text-base font-semibold text-gray-600 tracking-wide">Overview</p>
-
-  <div class="flex-1 mt-4 text-gray-600">
-    <div *ngFor="let item of menuItems" class="py-2">
-      <div class="flex items-center justify-between" (click)="item.label === 'Logout' ? logout() : null" >
-        <a
-          [routerLink]="item.link"
-          class="flex items-center text-gray-600 hover:text-green-500 transition-colors duration-300"
-        >
-          <i [ngClass]="'pi pi-' + item.icon" class="text-lg"></i>
-          <span class="ml-3 font-medium text-sm">{{ item.label }}</span>
-        </a>
-        <span
-          *ngIf="item.badge"
-          class="bg-green-500 text-white text-xs px-2 py-1 rounded-full shadow-sm"
-        >
-          {{ item.badge }}
-        </span>
-      
-      
+<!-- Side Navigation -->
+<div
+  [class.hidden]="!isSideNavOpen"
+  [class.block]="isSideNavOpen"
+  class="fixed inset-0 z-40 bg-black bg-opacity-50 lg:bg-opacity-0 lg:static lg:flex lg:h-screen"
+>
+  <div
+    class="h-full w-64 bg-white shadow-md lg:shadow-none transform lg:transform-none transition-transform duration-300"
+    [class.-translate-x-full]="!isSideNavOpen"
+    [class.translate-x-0]="isSideNavOpen"
+  >
+    <div class="h-screen bg-gray-0 flex flex-col py-9 px-3">
+      <div class="flex items-center mb-4">
+        <div class="text-green-600 text-xl font-bold tracking-wide">FinTo.</div>
       </div>
-    </div>
-  </div>
 
-  <!-- User Section -->
-  <div class="px-3 py-3 border-t border-gray-200 mt-4">
-    <div class="flex items-center">
-      <img
-        [src]="user.profileImage"
-        alt="User Profile"
-        class="h-10 w-10 rounded-full border-2 border-green-500 shadow-sm"
-      />
-      <div class="ml-3">
-        <span class="block text-sm font-semibold text-gray-700">{{
-          user.name
-        }}</span>
-        <span class="block text-xs text-gray-500">View Profile</span>
+      <p class="text-base font-semibold text-gray-600 tracking-wide">
+        Overview
+      </p>
+
+      <div class="flex-1 mt-4 text-gray-600">
+        <div
+          *ngFor="let item of menuItems"
+          class="py-2"
+        >
+          <div
+            class="flex items-center justify-between"
+            (click)="item.label === 'Logout' ? logout() : null"
+          >
+            <a
+              [routerLink]="item.link"
+              [queryParams]="item.queryParams"
+              class="flex items-center text-gray-600 hover:text-green-500 transition-colors duration-300"
+            >
+              <i [ngClass]="'pi pi-' + item.icon" class="text-lg"></i>
+              <span class="ml-3 font-medium text-sm">{{ item.label }}</span>
+            </a>
+            <span
+              *ngIf="item.badge"
+              class="bg-green-500 text-white text-xs px-2 py-1 rounded-full shadow-sm"
+            >
+              {{ item.badge }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- User Section -->
+      <div class="px-3 py-3 border-t border-gray-200 mt-4">
+        <div class="flex items-center">
+          <img
+            [src]="user.profileImage"
+            alt="User Profile"
+            class="h-10 w-10 rounded-full border-2 border-green-500 shadow-sm"
+          />
+          <div class="ml-3">
+            <span
+              class="block text-sm font-semibold text-gray-700"
+            >
+              {{ user.name }}
+            </span>
+            <span class="block text-xs text-gray-500">View Profile</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>

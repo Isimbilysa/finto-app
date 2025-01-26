@@ -14,7 +14,8 @@ export class AssetService {
   registerAsset(asset: any): Observable<any> {
     return this.http.post(`${this.baseUrl}`, asset,  {
         headers: {
-            'Authorization' : 'Bearer ' + this.cookieService.get('accessToken')
+            'Authorization' : 'Bearer ' + this.cookieService.get('accessToken'),
+            'ipAddress': this.cookieService.get('ipAddress')
         }
     });
   }

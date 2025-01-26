@@ -1,19 +1,21 @@
-<div class="flex h-screen bg-gray-50 gap-2">
+<div class="flex flex-col lg:flex-row h-screen bg-gray-50 gap-2">
   <!-- Sidebar -->
-  <app-sidebar class="w-1/5"></app-sidebar>
+  <app-sidebar></app-sidebar>
 
   <!-- Main Content -->
-  <div class="grid p-6 w-4/5 bg-white shadow-lg rounded-lg">
+  <div class="w-full lg:w-4/5 p-6 bg-white shadow-lg rounded-lg">
     <!-- Header -->
-    <h1 class="text-3xl font-bold mb-2 text-gray-800">Assets</h1>
+    <h1 class="text-2xl md:text-3xl font-bold mb-2 text-gray-800">Assets</h1>
     <nav class="text-gray-500 text-sm mb-4">
       <span class="hover:text-blue-500 cursor-pointer">Dashboard</span> &gt;
       <span class="hover:text-blue-500 cursor-pointer">Assets</span> &gt; List
     </nav>
 
     <!-- Filters and Actions -->
-    <div class="flex justify-between items-center mb-6">
-      <div class="flex space-x-3">
+    <div
+      class="flex flex-col md:flex-row justify-between items-center mb-6 space-y-4 md:space-y-0"
+    >
+      <div class="flex flex-wrap gap-3">
         <button
           class="px-4 py-2 rounded-md bg-gray-100 text-gray-700 shadow hover:bg-gray-200 transition"
         >
@@ -44,90 +46,70 @@
       <p-toast></p-toast>
     </div>
 
-    <div class="flex items-center mb-6">
+    <!-- Search -->
+    <div
+      class="flex flex-col sm:flex-row items-center mb-6 space-y-4 sm:space-y-0"
+    >
       <input
         type="text"
-        [(ngModel)] = "searchTerm"
+        [(ngModel)]="searchTerm"
+        (input)="search()"
         placeholder="Search by name, email, or company..."
-        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        class="w-full sm:w-2/3 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
-      <button
-        class="ml-2 px-4 py-2 rounded-md bg-blue-500 text-white shadow-lg hover:bg-blue-600 transition"
-        (click)="search()"
-      >
-        Search
-      </button>
+      
     </div>
 
-    <table
-      class="table-auto w-full bg-white rounded-md shadow-md overflow-hidden"
-    >
-      <thead>
-        <tr class="bg-gray-100 text-left text-gray-600 uppercase text-xs">
-          <th class="px-4 py-3">
-            <input type="checkbox" />
-          </th>
-          <th class="px-4 py-3">Name</th>
-          <th class="px-4 py-3">Description</th>
-          <th class="px-4 py-3">type</th>
-          <th class="px-4 py-3">Portfolio name</th>
-          <th class="px-4 py-3">Status</th>
-          <th class="px-4 py-3 text-right">Actions</th>
-        </tr>
-      </thead>
-      <tbody class="text-gray-700 text-sm">
-        <tr *ngFor="let asset of assets" class="border-t hover:bg-gray-50">
-          <td class="px-4 py-3">
-            <input type="checkbox" />
-          </td>
-          <td class="px-4 py-3 space-x-3">
-            {{ asset.name }}
-          </td>
-          <td class="px-4 py-3">{{ asset.description }}</td>
-          <td class="px-4 py-3">{{ asset.assetType }}</td>
-          <td class="px-4 py-3">{{ asset.portfolio.name }}</td>
-          <td class="px-4 py-3">{{ asset.assetStatus }}</td>
-          <!-- <td class="px-4 py-3">
-            <span
-            class="px-4 py-2 rounded-full"
-            [ngClass]="{
-              'text-green-500 bg-green-100': asset.status === 'Active',       
-              'text-red-500 bg-red-100': asset.status === 'Inactive'
-            }"
-            >
-              {{ asset.status }}
-            </span>
-          </td> -->
-          <td class="px-4 py-3 ">
-            <div class="flex gap-2 justify-center">
-              <i
-                class="pi pi-trash text-red-500 text-xl"
-                (click)="delete(asset.id)"
-              ></i>
-               <app-update-asset [asset]="asset"></app-update-asset>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <!-- Table -->
+    <div class="overflow-x-auto">
+      <table class="table-auto w-full bg-white rounded-md shadow-md">
+        <thead>
+          <tr class="bg-gray-100 text-left text-gray-600 uppercase text-xs">
+            <th class="px-4 py-3">
+              <input type="checkbox" />
+            </th>
+            <th class="px-4 py-3">Name</th>
+            <th class="px-4 py-3">Description</th>
+            <th class="px-4 py-3">Type</th>
+            <th class="px-4 py-3">Portfolio Name</th>
+            <th class="px-4 py-3">Status</th>
+            <th class="px-4 py-3 text-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="text-gray-700 text-sm">
+          <tr *ngFor="let asset of assets" class="border-t hover:bg-gray-50">
+            <td class="px-4 py-3">
+              <input type="checkbox" />
+            </td>
+            <td class="px-4 py-3">{{ asset.name }}</td>
+            <td class="px-4 py-3">{{ asset.description }}</td>
+            <td class="px-4 py-3">{{ asset.assetType }}</td>
+            <td class="px-4 py-3">{{ asset.portfolio.name }}</td>
+            <td class="px-4 py-3">{{ asset.assetStatus }}</td>
+            <td class="px-4 py-3">
+              <div class="flex gap-2 justify-center">
+                <i
+                  class="pi pi-trash text-red-500 text-xl"
+                  (click)="delete(asset.id)"
+                ></i>
+                <app-update-asset [asset]="asset"></app-update-asset>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-    <div class="flex justify-between items-center mt-6 text-gray-600 text-sm">
-      <!-- <label class="flex items-center space-x-2">
-        <input type="checkbox" />
-        <span>Dense</span>
-      </label> -->
-      <!-- <div>
-        Rows per page: <span class="font-medium">5</span>
-        <span class="ml-2">1–5 of 20</span>
-      </div> -->
+    <!-- Pagination -->
+    <div class="flex items-center justify-center mt-6 text-gray-600 text-sm">
       <button
-      *ngFor="let page of totalPages; let i = index"
-      (click)="onPageChange(i)"
-      [class.bg-blue-500]="i === currentPage"
-      class="px-3 py-1 rounded-md mx-1 border border-gray-300"
-    >
-      {{ i + 1 }}
-    </button>
+        *ngFor="let page of totalPages; let i = index"
+        (click)="onPageChange(i)"
+        [class.bg-blue-500]="i === currentPage"
+        class="px-3 py-1 rounded-md mx-1 border border-gray-300"
+      >
+        {{ i + 1 }}
+      </button>
     </div>
   </div>
 </div>

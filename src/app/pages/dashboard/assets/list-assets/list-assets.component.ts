@@ -10,6 +10,7 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { UpdateAssetComponent } from '../update-asset/update-asset.component';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-list-assets',
@@ -27,14 +28,17 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './list-assets.component.css',
 })
 export class ListAssetsComponent implements OnInit{
-  constructor(private assetService : AssetService, private messageService : MessageService){}
+  constructor(private assetService : AssetService, private messageService : MessageService, private route: ActivatedRoute){}
   assets: Asset[] | null = null;
   searchTerm: string = '';
   Math = Math;
   totalItems = this.assets?.length; 
-  pageSize = 10; 
+  pageSize = 5; 
   currentPage = 0;
   pageCount : number = 0;
+  portfolioID: string | null = '';
+
+
   get totalPages(): number[] {
     this.pageCount = Math.ceil(this.totalItems? this.totalItems / this.pageSize : 0);
     return Array.from({ length: this.pageCount }, (_, index) => index); // Creates an array [0, 1, 2, ...]
@@ -42,12 +46,12 @@ export class ListAssetsComponent implements OnInit{
 
   onPageChange(page: number): void {
     this.currentPage = page;
-    console.log(`Current Page: ${page + 1}`);
+    this.loadPortfolios();
   }
 
   loadPortfolios(): void {
     this.assetService
-      .getAssetsPaginated(this.currentPage, this.pageSize, this.searchTerm)
+      .getAssetsPaginated(this.currentPage, this.pageSize, this.searchTerm, this.portfolioID)
       .subscribe({
         next: (data) => {
           this.assets = data.content;           
@@ -66,16 +70,12 @@ export class ListAssetsComponent implements OnInit{
   }
   
   ngOnInit(): void {
-    this.assetService.getAssets().subscribe({
-      next: (data) => {
-        this.assets = data; // Assign the fetched data
-        console.log('Assets loaded:', this.assets);
-        this.totalItems = data.length;
-      },
-      error: (err) => {
-        console.error('Failed to fetch assets:', err);
-      },
+    this.portfolioID = this.route.snapshot.queryParamMap.get('portfolioID');
+
+    this.route.queryParamMap.subscribe((params) => {
+      this.portfolioID = params.get('portfolioID');
     });
+    this.loadPortfolios();
   }
 
   visible = true;
@@ -87,9 +87,9 @@ export class ListAssetsComponent implements OnInit{
     console.log('Deleting asset with id:', id); 
     this.assetService.deleteAsset(id).subscribe({
       next: (data) => {
-        this.assets = data; // Assign the fetched data
-        console.log('Assets loaded:', this.assets);
+
         this.messageService.add({severity:'success', summary:'Success', detail:'Asset deleted successfully!'});
+        this.loadPortfolios();
       },
       error: (err) => {
         console.error('Failed to fetch assets:', err);

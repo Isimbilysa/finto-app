@@ -11,6 +11,8 @@ import { UserServiceService } from '../../../core/user/user-service.service';
 export class SideNavComponent {
   constructor (private userService: UserServiceService,private router: Router){}
   // Sidebar menu items
+  isSideNavOpen: boolean = false;
+
   menuItems = [
     { label: 'Analytics', icon: 'home', link: '/dashboard/analytics' },
     {
@@ -22,6 +24,7 @@ export class SideNavComponent {
       label: 'Assets',
       icon: 'chart-bar',
       link: '/dashboard/assets',
+      queryParams : {'portfolio': 'all'}
     },
     { label: 'Calendar', icon: 'users', link: '/team' },
     { label: 'Trends', icon: 'envelope', link: '/messages', badge: 3 },
@@ -41,5 +44,8 @@ export class SideNavComponent {
   // Toggle submenu visibility
   toggleSubmenu(item: any) {
     item.expanded = !item.expanded;
+  }
+  toggleSideNav() {
+    this.isSideNavOpen = !this.isSideNavOpen;
   }
 }

@@ -65,7 +65,8 @@ export class CreateAssetComponent implements OnInit {
    registerAsset(asset: any): Observable<any> {
       return this.http.post(`${this.baseUrl}?portfolio_id=${this.selectedPortfolioId}`, asset,  {
           headers: {
-              'Authorization' : 'Bearer ' + this.cookieService.get('accessToken')
+              'Authorization' : 'Bearer ' + this.cookieService.get('accessToken'),
+              'ipAddress' : this.cookieService.get('ipAddress')
           }
       });
     }

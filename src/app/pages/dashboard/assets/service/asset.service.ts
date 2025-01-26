@@ -20,6 +20,7 @@ export class AssetService {
       .get<any>(this.apiUrl + 'assets', {
         headers: {
           Authorization: 'Bearer ' + this.cookieService.get('accessToken'),
+          ipAddress: this.cookieService.get('ipAddress'),
         },
       })
       .pipe(
@@ -32,14 +33,15 @@ export class AssetService {
     name: '',
     description: '',
     marketValue: 0,
-    asset_type: ''
-  }
+    asset_type: '',
+  };
 
-  getAsset(id:string): Observable<any> {
+  getAsset(id: string): Observable<any> {
     return this.http
       .get<any>(this.apiUrl + 'assets/' + id, {
         headers: {
           Authorization: 'Bearer ' + this.cookieService.get('accessToken'),
+          ipAddress: this.cookieService.get('ipAddress'),
         },
       })
       .pipe(
@@ -53,6 +55,7 @@ export class AssetService {
       .delete<any>(`${this.apiUrl}assets/${id}`, {
         headers: {
           Authorization: 'Bearer ' + this.cookieService.get('accessToken'),
+          ipAddress: this.cookieService.get('ipAddress'),
         },
       })
       .pipe(
@@ -61,35 +64,42 @@ export class AssetService {
       );
   }
 
-  editAsset(asset : Asset, id:string){
+  editAsset(asset: Asset, id: string) {
     this.assetBody = {
       name: asset.name,
       description: asset.description,
       marketValue: asset.marketValue,
-      asset_type: asset.assetType
-    }
-    return this.http.put(`${this.apiUrl}assets/${id}`,this.assetBody, {
+      asset_type: asset.assetType,
+    };
+    return this.http.put(`${this.apiUrl}assets/${id}`, this.assetBody, {
       headers: {
-        'Authorization' : 'Bearer '+ this.cookieService.get('accessToken')
-      }
+        Authorization: 'Bearer ' + this.cookieService.get('accessToken'),
+        ipAddress: this.cookieService.get('ipAddress'),
+      },
     });
   }
-  getAssetsPaginated(page: number, limit: number, searchTerm: string = ''): Observable<any> {
+  getAssetsPaginated(
+    page: number,
+    limit: number,
+    searchTerm: string = '',
+    portfolio: string | null
+  ): Observable<any> {
     const params = {
       page: page.toString(),
       limit: limit.toString(),
       search: searchTerm,
+      ...(portfolio && { portfolio })
     };
-  
+
     return this.http
-      .get<any>(`${this.apiUrl}assets/paginated`, {
+      .get<any>(`${this.apiUrl}assets/search`, {
         headers: {
           Authorization: 'Bearer ' + this.cookieService.get('accessToken'),
         },
         params: params,
       })
       .pipe(
-        map((response) => response.data), 
+        map((response) => response.data),
         catchError(this.utilService.handleError)
       );
   }

@@ -1,33 +1,33 @@
-<div class="flex h-screen bg-gray-50">
+<div class="flex flex-col lg:flex-row h-screen bg-gray-50">
   <!-- Left Section -->
   <div
-    class="w-1/2 flex flex-col justify-center items-center bg-gradient-to-r from-[#DFFFE2] via-[#DFFFE2] to-[#FAFAFA] bg-[length:200%_200%] animate-gradient-x"
+    class="w-full lg:w-1/2 flex flex-col justify-center items-center px-4 py-6 lg:px-12 bg-gradient-to-r from-[#DFFFE2] via-[#DFFFE2] to-[#FAFAFA] bg-[length:200%_200%] animate-gradient-x"
   >
     <span class="text-green-600 text-2xl font-bold">FinTo.</span>
-    <h1 class="text-4xl font-bold text-gray-800">Manage the job</h1>
-    <p class="mt-2 text-gray-600 text-lg">
+    <h1 class="text-3xl lg:text-4xl font-bold text-gray-800 text-center lg:text-left">
+      Manage the job
+    </h1>
+    <p class="mt-2 text-gray-600 text-base lg:text-lg text-center lg:text-left">
       More effectively with optimized workflows.
     </p>
   </div>
 
   <!-- Right Section -->
-  <div class="w-1/2 flex flex-col justify-center items-center">
+  <div class="w-full lg:w-1/2 flex flex-col justify-center items-center px-4 py-6 lg:px-12">
     <div class="max-w-md w-full">
-      <h2 class="text-2xl font-semibold text-gray-800">
+      <h2 class="text-2xl font-semibold text-gray-800 text-center lg:text-left">
         Get started absolutely free
       </h2>
-      <p class="text-sm text-gray-600 mt-2">
+      <p class="text-sm text-gray-600 mt-2 text-center lg:text-left">
         Already have an account?
-        <a routerLink="/signin" class="text-green-600 hover:underline"
-          >Sign In</a
-        >
+        <a routerLink="/signin" class="text-green-600 hover:underline">Sign In</a>
       </p>
       <form class="mt-6 space-y-4" (submit)="onSubmit()">
         <!-- First Name -->
         <div>
-          <label for="firstName" class="block text-sm font-medium text-gray-700"
-            >First name</label
-          >
+          <label for="firstName" class="block text-sm font-medium text-gray-700">
+            First name
+          </label>
           <input
             type="text"
             id="firstName"
@@ -39,37 +39,37 @@
 
         <!-- Last Name -->
         <div>
-          <label for="lastName" class="block text-sm font-medium text-gray-700"
-            >Last name</label
-          >
+          <label for="lastName" class="block text-sm font-medium text-gray-700">
+            Last name
+          </label>
           <input
             type="text"
             id="lastName"
             [(ngModel)]="formData.lastName"
             name="lastName"
-            class="w-full mt-1 px-3 py-2 border rounded-lg focus:outline-green-500  focus:border-green-500"
+            class="w-full mt-1 px-3 py-2 border rounded-lg focus:outline-green-500 focus:border-green-500"
           />
         </div>
 
         <!-- Email -->
         <div>
-          <label for="email" class="block text-sm font-medium text-gray-700"
-            >Email address</label
-          >
+          <label for="email" class="block text-sm font-medium text-gray-700">
+            Email address
+          </label>
           <input
             type="email"
             id="email"
             [(ngModel)]="formData.email"
             name="email"
-            class="w-full mt-1 px-3 py-2 border  rounded-lg focus:outline-green-500 focus:border-green-500"
+            class="w-full mt-1 px-3 py-2 border rounded-lg focus:outline-green-500 focus:border-green-500"
           />
         </div>
 
         <!-- Password -->
         <div>
-          <label for="password" class="block text-sm font-medium text-gray-700"
-            >Password</label
-          >
+          <label for="password" class="block text-sm font-medium text-gray-700">
+            Password
+          </label>
           <p-password
             name="password"
             [toggleMask]="true"
@@ -78,8 +78,8 @@
           />
         </div>
 
+        <!-- Submit Button -->
         <div>
-          <!-- Submit Button -->
           <p-toast />
           <p-button (onClick)="onSubmit()" label="Sign Up" />
         </div>
