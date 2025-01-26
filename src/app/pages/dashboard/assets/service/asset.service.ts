@@ -82,12 +82,14 @@ export class AssetService {
     page: number,
     limit: number,
     searchTerm: string = '',
+    filter: string = '',
     portfolio: string | null
   ): Observable<any> {
     const params = {
       page: page.toString(),
       limit: limit.toString(),
       search: searchTerm,
+      filter: filter,
       ...(portfolio && { portfolio })
     };
 

@@ -62,6 +62,5 @@ export class UpdatePortfolioComponent implements OnInit {
             console.error('Error fetching portfolios:', error);
           }
         );
-    throw new Error('Method not implemented.');
   }
 }

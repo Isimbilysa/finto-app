@@ -56,11 +56,12 @@ export class PortfolioService {
   getCategories(): Observable<any> {
     return this.http.get(`${this.baseUrl}/categories`);
   }
-  getPortfoliosPaginated(page: number, limit: number, searchTerm: string = ''): Observable<any> {
+  getPortfoliosPaginated(page: number, limit: number, searchTerm: string = '', filter : string = ''): Observable<any> {
     const params = {
       page: page.toString(),
       limit: limit.toString(),
       search: searchTerm,
+      filter
     };
   
     return this.http

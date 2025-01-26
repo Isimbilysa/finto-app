@@ -37,7 +37,7 @@ export class ListAssetsComponent implements OnInit{
   currentPage = 0;
   pageCount : number = 0;
   portfolioID: string | null = '';
-
+  filter:string = '';
 
   get totalPages(): number[] {
     this.pageCount = Math.ceil(this.totalItems? this.totalItems / this.pageSize : 0);
@@ -49,9 +49,15 @@ export class ListAssetsComponent implements OnInit{
     this.loadPortfolios();
   }
 
+  setFilter(filter: string): void {
+    this.filter = filter;
+    this.currentPage = 0;
+    this.loadPortfolios();
+  }
+
   loadPortfolios(): void {
     this.assetService
-      .getAssetsPaginated(this.currentPage, this.pageSize, this.searchTerm, this.portfolioID)
+      .getAssetsPaginated(this.currentPage, this.pageSize, this.searchTerm, this.filter, this.portfolioID)
       .subscribe({
         next: (data) => {
           this.assets = data.content;           
@@ -87,11 +93,13 @@ export class ListAssetsComponent implements OnInit{
     console.log('Deleting asset with id:', id); 
     this.assetService.deleteAsset(id).subscribe({
       next: (data) => {
-
         this.messageService.add({severity:'success', summary:'Success', detail:'Asset deleted successfully!'});
         this.loadPortfolios();
+        
       },
       error: (err) => {
+        console.log(err);
+        
         console.error('Failed to fetch assets:', err);
         this.messageService.add({severity:'error', summary:'Error', detail:err.error.message});
       },

@@ -39,12 +39,19 @@ export class PortfolioComponentComponent {
   pageSize = 5;
   currentPage = 0;
   pageCount: number = 0;
+  filter : string = '';
+
+  setFilter(value: string){
+    this.filter = value;
+    this.currentPage = 0;
+    this.loadPortfolios();
+  }
 
   get totalPages(): number[] {
     this.pageCount = Math.ceil(
       this.totalItems ? this.totalItems / this.pageSize : 0
     );
-    return Array.from({ length: this.pageCount }, (_, index) => index); // Creates an array [0, 1, 2, ...]
+    return Array.from({ length: this.pageCount }, (_, index) => index);
   }
 
   onPageChange(page: number): void {
@@ -55,7 +62,7 @@ export class PortfolioComponentComponent {
 
   loadPortfolios(): void {
     this.portfolioService
-      .getPortfoliosPaginated(this.currentPage, this.pageSize, this.searchTerm)
+      .getPortfoliosPaginated(this.currentPage, this.pageSize, this.searchTerm, this.filter)
       .subscribe({
         next: (data) => {
           this.portfolios = data.content;
@@ -88,6 +95,7 @@ export class PortfolioComponentComponent {
         this.loadPortfolios();
       },
       error: (err) => {
+        
         this.messageService.add({
           severity: 'error',
           summary: 'Error',

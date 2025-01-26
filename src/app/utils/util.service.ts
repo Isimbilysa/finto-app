@@ -10,8 +10,7 @@ export class UtilService {
   constructor(private http: HttpClient) {}
   public handleError(error: HttpErrorResponse): Observable<never> {
     let errorMessage = 'An unknown error occurred!';
-
-    if (error.error instanceof ErrorEvent) {
+    if (error.error) {      
       errorMessage = `Error: ${error.error.message}`;
     } else {
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
