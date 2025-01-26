@@ -6,19 +6,21 @@ import { AnalyticsComponentComponent } from './pages/dashboard/analytics/analyti
 import { ListAssetsComponent } from './pages/dashboard/assets/list-assets/list-assets.component';
 import { PortfolioComponentComponent } from './pages/dashboard/portfolio/portfolio.component/portfolio.component.component';
 import { AuthGuard } from './auth.guard';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 export const routes: Routes = [
-  { path: 'signin', component: SigninComponent },
-  { path: 'signup', component: SignupComponent },
-  { path: '', component: LandingComponent },
+  { path: 'signin', component: SigninComponent, title: 'SignIn' },
+  { path: 'signup', component: SignupComponent, title: 'SignUp' },
+  { path: '', component: LandingComponent, title: 'Welcome' },
   {
     path: 'dashboard',
     children: [
-      { path: 'analytics', component: AnalyticsComponentComponent },
-      { path: 'portfolio', component: PortfolioComponentComponent },
-      { path: 'assets?portfolio=portfolioID', component: ListAssetsComponent },
-      { path: 'assets', component: ListAssetsComponent },
+      { path: 'analytics', component: AnalyticsComponentComponent , title: 'Analytics'},
+      { path: 'portfolio', component: PortfolioComponentComponent, title: 'Portfolio' },
+      { path: 'assets?portfolio=portfolioID', component: ListAssetsComponent, title: 'Assets' },
+      { path: 'assets', component: ListAssetsComponent,  title: 'Assets' },
     ],
     canActivate: [AuthGuard]
   },
+  { path: '**', component: NotFoundComponent }
 ];
