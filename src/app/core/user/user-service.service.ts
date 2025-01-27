@@ -55,6 +55,14 @@ export class UserServiceService {
       .pipe(catchError(this.utilService.handleError));
   }
 
+  getUserProfile() : Observable<User>{
+    return this.http.get<User>(this.apiUrl + 'users/user/userProfile', {
+      headers: {
+        Authorization: 'Bearer '+ this.getUserContext('accessToken'),
+      },
+    }).pipe(catchError(this.utilService.handleError));
+  } 
+
   createUser(user: User): Observable<any> {
     return this.http.post(this.apiUrl + 'client/register', user);
   }

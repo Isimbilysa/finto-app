@@ -19,7 +19,7 @@
     [class.-translate-x-full]="!isSideNavOpen"
     [class.translate-x-0]="isSideNavOpen"
   >
-    <div class="h-screen bg-gray-0 flex flex-col py-9 px-3">
+    <div class="h-screen bg-gray-0 flex flex-col py-9 ml-8">
       <div class="flex items-center mb-4">
         <div class="text-green-600 text-xl font-bold tracking-wide">FinTo.</div>
       </div>
@@ -67,7 +67,7 @@
             <span
               class="block text-sm font-semibold text-gray-700"
             >
-              {{ user.name }}
+              {{ userProfile.firstName + ' ' + userProfile.lastName }}
             </span>
             <span class="block text-xs text-gray-500">View Profile</span>
           </div>

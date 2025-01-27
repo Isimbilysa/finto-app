@@ -64,7 +64,7 @@
             <th class="px-4 py-3 text-right">Actions</th>
           </tr>
         </thead>
-        <tbody class="text-gray-700 text-sm">
+        <tbody *ngIf="(portfolios ?? []).length > 0; else emptyPlaceholder" class="text-gray-700 text-sm">
           <tr
             *ngFor="let portfolio of portfolios"
             class="border-t hover:bg-gray-50"
@@ -80,9 +80,13 @@
             <td class="text-xs text-gray-500">{{ portfolio.description }}</td>
             <td class="px-4 py-3">{{ portfolio.createdAt }}</td>
             <td class="px-4 py-3">{{ portfolio.category }}</td>
-            <td class="px-4 py-3 text-center" [routerLink]="'/dashboard/assets'" [queryParams]="{portfolioID: portfolio.id}"><i
-              class="pi pi-eye text-xl"
-            ></i></td>
+            <td
+              class="px-4 py-3 text-center"
+              [routerLink]="'/dashboard/assets'"
+              [queryParams]="{ portfolioID: portfolio.id }"
+            >
+              <i class="pi pi-eye text-xl"></i>
+            </td>
             <td class="px-4 py-3">
               <i
                 class="pi pi-trash text-red-500 text-xl mr-2"
@@ -93,8 +97,15 @@
           </tr>
         </tbody>
       </table>
+    
+      <ng-template #emptyPlaceholder>
+        <div class=" text-center p-6 text-gray-500 flex flex-col justify-center items-center">
+          <p class="text-lg">No portfolios available</p>
+          <p class="text-sm">Add a new portfolio to get started.</p>
+        </div>
+      </ng-template>
     </div>
-
+    
     <!-- Footer -->
     <div class="flex flex-wrap justify-center items-center mt-6 text-gray-600 text-sm space-x-2">
       <button

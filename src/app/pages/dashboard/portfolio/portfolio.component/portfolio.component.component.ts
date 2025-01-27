@@ -32,7 +32,7 @@ export class PortfolioComponentComponent {
     private portfolioService: PortfolioService,
     private messageService: MessageService
   ) {}
-  portfolios: Portfolio[] | null = null;
+  portfolios: Portfolio[] = [];
   searchTerm: string = '';
   Math = Math;
   totalItems = this.portfolios?.length;
