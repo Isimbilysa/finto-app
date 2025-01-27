@@ -42,8 +42,7 @@ export class SideNavComponent implements OnInit {
     },
     { label: 'Calendar', icon: 'users', link: '/team' },
     { label: 'Trends', icon: 'envelope', link: '/messages', badge: 3 },
-    { label: 'Market', icon: 'calendar', link: '/calendar' },
-    { label: 'Logout', icon: 'sign-out', link: '/settings' },
+    { label: 'Market', icon: 'calendar', link: '/calendar' }
   ];
   user = {
     name: 'Amy Elsner',

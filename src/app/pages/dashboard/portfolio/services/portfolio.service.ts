@@ -30,7 +30,7 @@ export class PortfolioService {
 
     private apiUrl = 'http://localhost:9000/api/v1/';
     getPortfolios(): Observable<any> {
-      return this.http.get<any>(this.apiUrl + 'portfolios', {
+      return this.http.get<any>(this.apiUrl + 'portfolios/all/loggedInUser', {
         headers: {
           Authorization: 'Bearer ' + this.cookieService.get('accessToken'),
         },

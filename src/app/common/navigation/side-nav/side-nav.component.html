@@ -1,4 +1,3 @@
-<!-- Menu Icon for Smaller Screens -->
 <div class="fixed top-4 left-4 z-50 lg:hidden">
   <button
     (click)="toggleSideNav()"
@@ -8,7 +7,6 @@
   </button>
 </div>
 
-<!-- Side Navigation -->
 <div
   [class.hidden]="!isSideNavOpen"
   [class.block]="isSideNavOpen"
@@ -53,6 +51,18 @@
             </span>
           </div>
         </div>
+        <div
+        class="flex items-center justify-between"
+        (click)="logout()"
+      >
+        <div
+          class="flex items-center text-gray-600 hover:text-green-500 transition-colors duration-300"
+        >
+          <i [ngClass]="'pi pi-sign-out'" class="text-lg"></i>
+          <span class="ml-3 font-medium text-sm">Logout</span>
+      </div>
+        
+      </div>
       </div>
 
       <!-- User Section -->
